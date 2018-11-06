@@ -910,10 +910,6 @@ id direct
 id disableHome
 id edit_query
 id email
-id email_login_form
-id email_register
-id email_sign_in_button
-id email_sign_up_button
 id email_signup_form
 id end
 id end_padder
@@ -952,8 +948,6 @@ id line3
 id listMode
 id list_item
 id login
-id login_form
-id login_progress
 id masked
 id media_actions
 id message
@@ -980,7 +974,6 @@ id pin
 id progress_circular
 id progress_horizontal
 id radio
-id repeatpassword
 id right
 id right_icon
 id right_side
@@ -1035,7 +1028,6 @@ id text
 id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
-id textView
 id text_input_password_toggle
 id textinput_counter
 id textinput_error
@@ -1098,11 +1090,9 @@ layout abc_screen_toolbar
 layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
-layout activity_create_account
 layout activity_forget_password
 layout activity_login
 layout activity_main
-layout activity_oldlogin
 layout activity_register
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
