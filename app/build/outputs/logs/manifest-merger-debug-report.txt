@@ -1,13 +1,14 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-29:12
+ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-33:12
+INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-33:12
+INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-33:12
+INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-33:12
 MERGED from [com.android.support:design:26.1.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/80233966fb984107018de6a7e4043d3b/AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:appcompat-v7:26.1.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/797d000b7399be03011ef669b0ae0679/AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/carolina/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/614b1ed1a28cd234a21d0356ec9e0fad/AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.firebase:firebase-auth:16.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-auth-16.0.1.aar/56373091af978dea11590a20fda6c543/AndroidManifest.xml:17:1-38:12
+MERGED from [com.google.firebase:firebase-storage:16.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-storage-16.0.1.aar/f4f2636c9f8b5c40325b4cdc8ad032a2/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.firebase:firebase-core:15.0.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-core-15.0.0.aar/57c612bbaed00fa10d5b9d5b61d9a4b6/AndroidManifest.xml:2:1-9:12
 MERGED from [com.android.support:animated-vector-drawable:26.1.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/6acbcabb24285c248f4bb7f272bf43c7/AndroidManifest.xml:17:1-28:12
 MERGED from [com.android.support:support-vector-drawable:26.1.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.1.0.aar/1f4f1bd507ea23056b2c34de57abe71d/AndroidManifest.xml:17:1-28:12
@@ -22,6 +23,7 @@ MERGED from [com.google.firebase:firebase-iid-interop:15.0.0] /home/carolina/.gr
 MERGED from [com.google.android.gms:play-services-base:15.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/6853e8ea0c28cc5ae6cb43f6423e76d3/AndroidManifest.xml:17:1-29:12
 MERGED from [com.google.firebase:firebase-common:16.0.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-common-16.0.0.aar/6aa1e3fcefaa30ad7af950060e194de0/AndroidManifest.xml:2:1-16:12
 MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/396c95583f64d3b04a03ff342d489ee2/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:firebase-storage-common:16.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-storage-common-16.0.1.aar/94d046a69838ad3bf2df4ef8e1e5b128/AndroidManifest.xml:2:1-10:12
 MERGED from [com.google.android.gms:play-services-stats:15.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/play-services-stats-15.0.1.aar/fba79879f748fc65f7d8896e726621b1/AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-ads-identifier:15.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/play-services-ads-identifier-15.0.1.aar/27af8f083f14869bfbf18409615a2913/AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-basement:15.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/de23faf6d1140b30109ca9b4e0534281/AndroidManifest.xml:17:1-28:12
@@ -33,20 +35,20 @@ MERGED from [com.android.support:support-core-ui:26.1.0] /home/carolina/.gradle/
 MERGED from [com.android.support:support-compat:26.1.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/0191a4f20a1fbf137b656ee934edd76c/AndroidManifest.xml:17:1-31:12
 MERGED from [com.google.android.gms:play-services-measurement-base:15.0.2] /home/carolina/.gradle/caches/transforms-1/files-1.1/play-services-measurement-base-15.0.2.aar/0548c3e339ca7b002c002e62d7979235/AndroidManifest.xml:17:1-24:12
 MERGED from [android.arch.lifecycle:runtime:1.0.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/8f76e34180eddc004dd53b8aa9e69b27/AndroidManifest.xml:17:1-30:12
-INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-29:12
+INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-33:12
+INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-33:12
+INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-33:12
 	package
 		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:3:5-30
 		INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml
 		INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml
-		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-29:12
+		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-33:12
 		INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml
 	android:versionCode
 		INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml
-		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-29:12
+		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:1-33:12
 		INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:2:11-69
@@ -62,8 +64,24 @@ uses-permission#android.permission.READ_CONTACTS
 ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:8:5-72
 	android:name
 		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:8:22-69
+uses-permission#android.permission.INTERNET
+ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:9:5-67
+MERGED from [com.google.firebase:firebase-analytics:15.0.2] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-analytics-15.0.2.aar/9dbddab5961247ff8a9e10fe46808e8d/AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-analytics:15.0.2] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-analytics-15.0.2.aar/9dbddab5961247ff8a9e10fe46808e8d/AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-15.0.2.aar/b2b239462ff27dd17536d7ef7e6bb2ba/AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-15.0.2.aar/b2b239462ff27dd17536d7ef7e6bb2ba/AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-iid:15.1.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-iid-15.1.0.aar/403e9c878d6d490e5ac5c6a5ff1e3b72/AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-iid:15.1.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-iid-15.1.0.aar/403e9c878d6d490e5ac5c6a5ff1e3b72/AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-storage-common:16.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-storage-common-16.0.1.aar/94d046a69838ad3bf2df4ef8e1e5b128/AndroidManifest.xml:8:5-67
+MERGED from [com.google.firebase:firebase-storage-common:16.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-storage-common-16.0.1.aar/94d046a69838ad3bf2df4ef8e1e5b128/AndroidManifest.xml:8:5-67
+	android:name
+		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:9:22-64
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:10:5-80
+	android:name
+		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:10:22-77
 application
-ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:10:5-27:19
+ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:13:5-31:19
 MERGED from [com.android.support:design:26.1.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/80233966fb984107018de6a7e4043d3b/AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:design:26.1.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/80233966fb984107018de6a7e4043d3b/AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:appcompat-v7:26.1.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/797d000b7399be03011ef669b0ae0679/AndroidManifest.xml:25:5-29:19
@@ -121,43 +139,47 @@ MERGED from [com.google.android.gms:play-services-measurement-base:15.0.2] /home
 MERGED from [android.arch.lifecycle:runtime:1.0.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/8f76e34180eddc004dd53b8aa9e69b27/AndroidManifest.xml:24:5-28:19
 MERGED from [android.arch.lifecycle:runtime:1.0.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/8f76e34180eddc004dd53b8aa9e69b27/AndroidManifest.xml:24:5-28:19
 	android:supportsRtl
-		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:15:9-35
+		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:18:9-35
 	android:label
-		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:13:9-41
+		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:16:9-41
 	android:roundIcon
-		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:14:9-54
+		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:17:9-54
 	android:icon
-		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:12:9-43
+		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:15:9-43
 	android:allowBackup
-		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:11:9-35
+		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:14:9-35
 	android:theme
-		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:16:9-40
+		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:19:9-40
 activity#icm.greencities.MainActivity
-ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:17:9-23:20
+ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:20:9-26:20
 	android:name
-		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:17:19-47
+		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:20:19-47
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:18:13-22:29
+ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:21:13-25:29
 action#android.intent.action.MAIN
-ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:19:17-69
+ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:22:17-69
 	android:name
-		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:19:25-66
+		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:22:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:21:17-77
+ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:24:17-77
 	android:name
-		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:21:27-74
+		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:24:27-74
 activity#icm.greencities.ForgetPassword
-ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:24:9-52
+ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:27:9-52
 	android:name
-		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:24:19-49
+		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:27:19-49
 activity#icm.greencities.LoginActivity
-ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:25:9-51
+ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:28:9-51
 	android:name
-		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:25:19-48
+		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:28:19-48
 activity#icm.greencities.RegisterActivity
-ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:26:9-63
+ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:29:9-54
 	android:name
-		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:26:19-51
+		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:29:19-51
+activity#icm.greencities.ProfileAtivity
+ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:30:9-61
+	android:name
+		ADDED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml:30:19-49
 uses-sdk
 INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/carolina/AndroidStudioProjects/Greencities/app/src/main/AndroidManifest.xml
@@ -170,6 +192,8 @@ MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/carol
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/carolina/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/614b1ed1a28cd234a21d0356ec9e0fad/AndroidManifest.xml:5:5-7:41
 MERGED from [com.google.firebase:firebase-auth:16.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-auth-16.0.1.aar/56373091af978dea11590a20fda6c543/AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-auth:16.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-auth-16.0.1.aar/56373091af978dea11590a20fda6c543/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-storage:16.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-storage-16.0.1.aar/f4f2636c9f8b5c40325b4cdc8ad032a2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-storage:16.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-storage-16.0.1.aar/f4f2636c9f8b5c40325b4cdc8ad032a2/AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-core:15.0.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-core-15.0.0.aar/57c612bbaed00fa10d5b9d5b61d9a4b6/AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-core:15.0.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-core-15.0.0.aar/57c612bbaed00fa10d5b9d5b61d9a4b6/AndroidManifest.xml:5:5-44
 MERGED from [com.android.support:animated-vector-drawable:26.1.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/6acbcabb24285c248f4bb7f272bf43c7/AndroidManifest.xml:20:5-44
@@ -198,6 +222,8 @@ MERGED from [com.google.firebase:firebase-common:16.0.0] /home/carolina/.gradle/
 MERGED from [com.google.firebase:firebase-common:16.0.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-common-16.0.0.aar/6aa1e3fcefaa30ad7af950060e194de0/AndroidManifest.xml:5:5-6:37
 MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/396c95583f64d3b04a03ff342d489ee2/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/396c95583f64d3b04a03ff342d489ee2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-storage-common:16.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-storage-common-16.0.1.aar/94d046a69838ad3bf2df4ef8e1e5b128/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-storage-common:16.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-storage-common-16.0.1.aar/94d046a69838ad3bf2df4ef8e1e5b128/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-stats:15.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/play-services-stats-15.0.1.aar/fba79879f748fc65f7d8896e726621b1/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-stats:15.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/play-services-stats-15.0.1.aar/fba79879f748fc65f7d8896e726621b1/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-ads-identifier:15.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/play-services-ads-identifier-15.0.1.aar/27af8f083f14869bfbf18409615a2913/AndroidManifest.xml:20:5-44
@@ -286,20 +312,14 @@ ADDED from [com.google.firebase:firebase-auth:16.0.1] /home/carolina/.gradle/cac
 		ADDED from [com.google.firebase:firebase-auth:16.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-auth-16.0.1.aar/56373091af978dea11590a20fda6c543/AndroidManifest.xml:34:17-82
 	android:name
 		ADDED from [com.google.firebase:firebase-auth:16.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-auth-16.0.1.aar/56373091af978dea11590a20fda6c543/AndroidManifest.xml:33:17-109
-uses-permission#android.permission.INTERNET
-ADDED from [com.google.firebase:firebase-analytics:15.0.2] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-analytics-15.0.2.aar/9dbddab5961247ff8a9e10fe46808e8d/AndroidManifest.xml:23:5-67
-MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-15.0.2.aar/b2b239462ff27dd17536d7ef7e6bb2ba/AndroidManifest.xml:23:5-67
-MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-15.0.2.aar/b2b239462ff27dd17536d7ef7e6bb2ba/AndroidManifest.xml:23:5-67
-MERGED from [com.google.firebase:firebase-iid:15.1.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-iid-15.1.0.aar/403e9c878d6d490e5ac5c6a5ff1e3b72/AndroidManifest.xml:23:5-67
-MERGED from [com.google.firebase:firebase-iid:15.1.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-iid-15.1.0.aar/403e9c878d6d490e5ac5c6a5ff1e3b72/AndroidManifest.xml:23:5-67
-	android:name
-		ADDED from [com.google.firebase:firebase-analytics:15.0.2] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-analytics-15.0.2.aar/9dbddab5961247ff8a9e10fe46808e8d/AndroidManifest.xml:23:22-64
 uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from [com.google.firebase:firebase-analytics:15.0.2] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-analytics-15.0.2.aar/9dbddab5961247ff8a9e10fe46808e8d/AndroidManifest.xml:24:5-79
 MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-15.0.2.aar/b2b239462ff27dd17536d7ef7e6bb2ba/AndroidManifest.xml:24:5-79
 MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-15.0.2.aar/b2b239462ff27dd17536d7ef7e6bb2ba/AndroidManifest.xml:24:5-79
 MERGED from [com.google.firebase:firebase-iid:15.1.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-iid-15.1.0.aar/403e9c878d6d490e5ac5c6a5ff1e3b72/AndroidManifest.xml:22:5-79
 MERGED from [com.google.firebase:firebase-iid:15.1.0] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-iid-15.1.0.aar/403e9c878d6d490e5ac5c6a5ff1e3b72/AndroidManifest.xml:22:5-79
+MERGED from [com.google.firebase:firebase-storage-common:16.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-storage-common-16.0.1.aar/94d046a69838ad3bf2df4ef8e1e5b128/AndroidManifest.xml:7:5-79
+MERGED from [com.google.firebase:firebase-storage-common:16.0.1] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-storage-common-16.0.1.aar/94d046a69838ad3bf2df4ef8e1e5b128/AndroidManifest.xml:7:5-79
 	android:name
 		ADDED from [com.google.firebase:firebase-analytics:15.0.2] /home/carolina/.gradle/caches/transforms-1/files-1.1/firebase-analytics-15.0.2.aar/9dbddab5961247ff8a9e10fe46808e8d/AndroidManifest.xml:24:22-76
 uses-permission#android.permission.WAKE_LOCK

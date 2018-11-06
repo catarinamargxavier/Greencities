@@ -12,9 +12,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
-    <!-- Required permission for App measurement to run. -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" /> <!-- Required by older versions of Google Play services to create IID tokens -->
@@ -45,6 +44,7 @@
         <activity android:name="icm.greencities.ForgetPassword" />
         <activity android:name="icm.greencities.LoginActivity" />
         <activity android:name="icm.greencities.RegisterActivity" />
+        <activity android:name="icm.greencities.ProfileAtivity" />
 
         <meta-data
             android:name="android.support.VERSION"

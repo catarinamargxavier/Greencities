@@ -507,6 +507,7 @@ color foreground_material_dark
 color foreground_material_light
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color ic_launcher_background
 color material_blue_grey_800
 color material_blue_grey_900
 color material_blue_grey_950
@@ -876,7 +877,13 @@ id barrier
 id beginning
 id blocking
 id bottom
+id btnChoose
+id btnUpload
+id buttonGoals
 id buttonPanel
+id buttonProfile
+id buttonResults
+id buttonStart
 id cancel_action
 id center
 id center_horizontal
@@ -899,7 +906,6 @@ id customPanel
 id dark
 id decor_content_parent
 id default_activity_button
-id delete_user_button
 id design_bottom_sheet
 id design_menu_item_action_area
 id design_menu_item_action_area_stub
@@ -921,6 +927,7 @@ id expanded_menu
 id fill
 id fill_horizontal
 id fill_vertical
+id firstRow
 id fixed
 id forever
 id forget_password_button
@@ -935,6 +942,11 @@ id icon_only
 id ifRoom
 id image
 id imageView
+id imageView1
+id imageView2
+id imageViewProfile
+id imageViewResults
+id imgView
 id info
 id invisible
 id italic
@@ -1024,6 +1036,7 @@ id submenuarrow
 id submit_area
 id submit_button
 id tabMode
+id table_layout
 id text
 id text2
 id textSpacerNoButtons
@@ -1093,6 +1106,7 @@ layout abc_select_dialog_material
 layout activity_forget_password
 layout activity_login
 layout activity_main
+layout activity_profile_ativity
 layout activity_register
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -1128,8 +1142,15 @@ layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 layout tooltip
+mipmap ic_goals
+mipmap ic_goals_round
 mipmap ic_launcher
+mipmap ic_launcher_foreground
 mipmap ic_launcher_round
+mipmap ic_profile
+mipmap ic_profile_round
+mipmap ic_results
+mipmap ic_results_round
 string abc_action_bar_home_description
 string abc_action_bar_home_description_format
 string abc_action_bar_home_subtitle_description_format

@@ -1,60 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/white"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="16dp">
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/table_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="1">
 
-    <TextView
+        <TableRow
+            android:id="@+id/firstRow"/>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_goals" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_goals" />
+
+        <TableRow />
+
+    <ImageView
+        android:id="@+id/imageViewResults"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome to Greencities"
-        android:gravity="center"
-        android:textAllCaps="true"
-        android:textSize="16sp"
-        android:padding="10dp"/>
+        app:srcCompat="@mipmap/ic_results" />
 
+    <ImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_profile" />
 
+    <LinearLayout>
     <Button
-        android:id="@+id/change_password_button"
-        android:layout_width="fill_parent"
+        android:id="@+id/buttonStart"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dip"
-        android:background="@color/colorPrimary"
-        android:text="Change Password"
-        android:textColor="@color/white" />
+        android:text="Start Activity"/>
+    </LinearLayout>
+    <LinearLayout>
+        <Button
+            android:id="@+id/buttonGoals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Goals"/>
+    </LinearLayout>
+    <LinearLayout>
+        <Button
+            android:id="@+id/buttonResults"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Results"/>
+    </LinearLayout>
+    <LinearLayout>
+        <Button
+            android:id="@+id/buttonProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Profile"/>
+    </LinearLayout>
 
+    <LinearLayout>
 
-    <Button
-        android:id="@+id/change_email_button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:background="@color/colorPrimary"
-        android:text="Change Email"
-        android:textColor="@color/white" />
+        <Button
+            android:id="@+id/sign_out_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="Sign Out"
+            android:textColor="@color/white" />
 
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/delete_user_button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:background="@color/colorPrimary"
-        android:text="Delete User"
-        android:textColor="@color/white" />
-
-
-    <Button
-        android:id="@+id/sign_out_button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:background="@color/colorPrimary"
-        android:text="Sign Out"
-        android:textColor="@color/white" />
-
-
-</LinearLayout>
+</TableLayout>

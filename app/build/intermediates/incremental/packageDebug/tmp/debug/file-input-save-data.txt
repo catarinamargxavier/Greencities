@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Mon Nov 05 15:53:37 WET 2018
+#Tue Nov 06 15:59:20 WET 2018
 0.baseType=DIRECTORY
 0.base=/home/carolina/AndroidStudioProjects/Greencities/app/build/intermediates/transforms/dexMerger/debug/0
 0.path=classes.dex

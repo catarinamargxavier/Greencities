@@ -1,4 +1,4 @@
-#Tue Nov 06 12:17:36 WET 2018
+#Tue Nov 06 15:59:20 WET 2018
 base.0=/home/carolina/AndroidStudioProjects/Greencities/app/build/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex
