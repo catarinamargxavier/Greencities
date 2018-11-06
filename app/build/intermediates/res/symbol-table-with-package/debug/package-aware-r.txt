@@ -667,6 +667,7 @@ dimen design_tab_text_size
 dimen design_tab_text_size_2line
 dimen disabled_alpha_material_dark
 dimen disabled_alpha_material_light
+dimen fab_margin
 dimen fastscroll_default_thickness
 dimen fastscroll_margin
 dimen fastscroll_minimum_range
@@ -680,6 +681,8 @@ dimen hint_pressed_alpha_material_light
 dimen item_touch_helper_max_drag_scroll_per_frame
 dimen item_touch_helper_swipe_escape_max_velocity
 dimen item_touch_helper_swipe_escape_velocity
+dimen nav_header_height
+dimen nav_header_vertical_spacing
 dimen notification_action_icon_size
 dimen notification_action_text_size
 dimen notification_big_circle_margin
@@ -822,6 +825,12 @@ drawable greencities
 drawable greencities_b
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable ic_menu_camera
+drawable ic_menu_gallery
+drawable ic_menu_manage
+drawable ic_menu_send
+drawable ic_menu_share
+drawable ic_menu_slideshow
 drawable icon
 drawable logo_w
 drawable navigation_empty_icon
@@ -837,6 +846,7 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable side_nav_bar
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT
@@ -927,7 +937,6 @@ id expanded_menu
 id fill
 id fill_horizontal
 id fill_vertical
-id firstRow
 id fixed
 id forever
 id forget_password_button
@@ -1036,7 +1045,6 @@ id submenuarrow
 id submit_area
 id submit_button
 id tabMode
-id table_layout
 id text
 id text2
 id textSpacerNoButtons
@@ -1151,6 +1159,8 @@ mipmap ic_profile
 mipmap ic_profile_round
 mipmap ic_results
 mipmap ic_results_round
+mipmap ic_start_activity
+mipmap ic_start_activity_round
 string abc_action_bar_home_description
 string abc_action_bar_home_description_format
 string abc_action_bar_home_subtitle_description_format
@@ -1185,6 +1195,7 @@ string abc_toolbar_collapse_description
 string action_country
 string action_register
 string action_repeatPassword
+string action_settings
 string action_sign_in
 string action_sign_in_short
 string action_sign_up
@@ -1224,12 +1235,19 @@ string google_app_id
 string google_crash_reporting_api_key
 string google_storage_bucket
 string login
+string logout
+string nav_header_desc
+string nav_header_subtitle
+string nav_header_title
+string navigation_drawer_close
+string navigation_drawer_open
 string password_toggle_content_description
 string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
 string permission_rationale
+string profile
 string project_id
 string prompt_city
 string prompt_country
@@ -1241,6 +1259,7 @@ string search_menu_title
 string sign_up
 string status_bar_notification_info_overflow
 string title_activity_login
+string title_activity_side_menu
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style Animation_AppCompat_Dialog
@@ -1248,6 +1267,8 @@ style Animation_AppCompat_DropDownUp
 style Animation_AppCompat_Tooltip
 style Animation_Design_BottomSheetDialog
 style AppTheme
+style AppTheme_AppBarOverlay
+style AppTheme_PopupOverlay
 style Base_AlertDialog_AppCompat
 style Base_AlertDialog_AppCompat_Light
 style Base_Animation_AppCompat_Dialog
