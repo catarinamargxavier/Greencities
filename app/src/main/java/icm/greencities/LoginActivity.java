@@ -1,5 +1,6 @@
 package icm.greencities;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -91,7 +92,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), ForgetPassword.class).putExtra("Mode", 0));
             }
         });
-
     }
 
     @Override    protected void onResume() {

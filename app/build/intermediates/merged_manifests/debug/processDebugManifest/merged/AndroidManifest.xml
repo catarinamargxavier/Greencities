@@ -45,6 +45,10 @@
         <activity android:name="icm.greencities.LoginActivity" />
         <activity android:name="icm.greencities.RegisterActivity" />
         <activity android:name="icm.greencities.ProfileAtivity" />
+        <activity
+            android:name="icm.greencities.NavigationDrawer"
+            android:label="@string/title_activity_navigation_drawer"
+            android:theme="@style/AppTheme" />
 
         <meta-data
             android:name="android.support.VERSION"

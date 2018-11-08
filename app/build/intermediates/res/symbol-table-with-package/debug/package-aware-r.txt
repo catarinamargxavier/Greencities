@@ -823,6 +823,7 @@ drawable googleg_standard_color_18
 drawable green
 drawable greencities
 drawable greencities_b
+drawable ic_insert_chart_black
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_menu_camera
@@ -831,6 +832,9 @@ drawable ic_menu_manage
 drawable ic_menu_send
 drawable ic_menu_share
 drawable ic_menu_slideshow
+drawable ic_person_black
+drawable ic_play_circle_filled_black
+drawable ic_star_black
 drawable icon
 drawable logo_w
 drawable navigation_empty_icon
@@ -872,6 +876,7 @@ id action_menu_presenter
 id action_mode_bar
 id action_mode_bar_stub
 id action_mode_close_button
+id action_settings
 id action_text
 id actions
 id activity_chooser_view_content
@@ -924,6 +929,7 @@ id design_navigation_view
 id dimensions
 id direct
 id disableHome
+id drawer_layout
 id edit_query
 id email
 id email_signup_form
@@ -934,6 +940,7 @@ id enterAlwaysCollapsed
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
+id fab
 id fill
 id fill_horizontal
 id fill_vertical
@@ -977,6 +984,13 @@ id mini
 id mode
 id multiply
 id name
+id nav_activities
+id nav_goals
+id nav_manage
+id nav_profile
+id nav_results
+id nav_start_activity
+id nav_view
 id navigation_header_container
 id never
 id none
@@ -1049,6 +1063,7 @@ id text
 id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
+id textView
 id text_input_password_toggle
 id textinput_counter
 id textinput_error
@@ -1056,6 +1071,7 @@ id time
 id title
 id titleDividerNoCustom
 id title_template
+id toolbar
 id top
 id topPanel
 id touch_outside
@@ -1114,8 +1130,11 @@ layout abc_select_dialog_material
 layout activity_forget_password
 layout activity_login
 layout activity_main
+layout activity_navigation_drawer
 layout activity_profile_ativity
 layout activity_register
+layout app_bar_navigation_drawer
+layout content_navigation_drawer
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
 layout design_layout_snackbar
@@ -1130,6 +1149,7 @@ layout design_navigation_item_subheader
 layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_password_icon
+layout nav_header_navigation_drawer
 layout notification_action
 layout notification_action_tombstone
 layout notification_media_action
@@ -1150,6 +1170,8 @@ layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 layout tooltip
+menu activity_navigation_drawer_drawer
+menu navigation_drawer
 mipmap ic_goals
 mipmap ic_goals_round
 mipmap ic_launcher
@@ -1259,6 +1281,7 @@ string search_menu_title
 string sign_up
 string status_bar_notification_info_overflow
 string title_activity_login
+string title_activity_navigation_drawer
 string title_activity_side_menu
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light

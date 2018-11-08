@@ -1,5 +1,6 @@
 package icm.greencities;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -89,7 +90,5 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
 }
