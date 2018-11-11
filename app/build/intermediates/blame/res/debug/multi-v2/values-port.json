@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/carolina/AndroidStudioProjects/Greencities/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-port/values-port.xml",
+            "outputFile": "C:\\Users\\Catarina Xavier\\Desktop\\Greencities\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-port\\values-port.xml",
             "map": [
                 {
-                    "source": "/home/carolina/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/797d000b7399be03011ef669b0ae0679/res/values-port/values-port.xml",
+                    "source": "C:\\Users\\Catarina Xavier\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\83e800887ea8000ae6ec423b3d3cb6a6\\res\\values-port\\values-port.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

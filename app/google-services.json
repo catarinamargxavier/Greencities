@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "424903682463-t64oj1v3g4ard8rj9k9p4dk3edvdkksn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "icm.greencities",
+            "certificate_hash": "71de346b33b2bc4125255002958a64ecff657543"
+          }
+        },
+        {
           "client_id": "424903682463-s94etl1mgi01nn6tfedq2qks9tnuqa76.apps.googleusercontent.com",
           "client_type": 3
         }

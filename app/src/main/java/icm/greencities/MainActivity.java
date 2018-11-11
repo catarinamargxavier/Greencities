@@ -13,7 +13,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-
     FirebaseAuth auth;
     FirebaseUser user;
     Button btnSignOut;
