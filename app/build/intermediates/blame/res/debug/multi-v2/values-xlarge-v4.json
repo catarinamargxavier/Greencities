@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Catarina Xavier\\Desktop\\Greencities\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-xlarge-v4\\values-xlarge-v4.xml",
+            "outputFile": "/home/catarina/Desktop/Greencities/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-xlarge-v4/values-xlarge-v4.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Catarina Xavier\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\83e800887ea8000ae6ec423b3d3cb6a6\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
+                    "source": "/home/catarina/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0b885ea30196458ff78ef68e597c45a2/res/values-xlarge-v4/values-xlarge-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7",
                         "startColumns": "4,4,4,4,4,4",

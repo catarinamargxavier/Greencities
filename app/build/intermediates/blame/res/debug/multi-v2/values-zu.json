@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Catarina Xavier\\Desktop\\Greencities\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-zu\\values-zu.xml",
+            "outputFile": "/home/catarina/Desktop/Greencities/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zu/values-zu.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Catarina Xavier\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-15.0.1.aar\\67f04821705a32112aa705c3546b4495\\res\\values-zu\\values.xml",
+                    "source": "/home/catarina/.gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/8db5dc04049269e3efad670f4a7d6c75/res/values-zu/values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Catarina Xavier\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\83e800887ea8000ae6ec423b3d3cb6a6\\res\\values-zu\\values-zu.xml",
+                    "source": "/home/catarina/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0b885ea30196458ff78ef68e597c45a2/res/values-zu/values-zu.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Catarina Xavier\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-15.0.1.aar\\60a699cdcf24d73239a45e46f41dd2c2\\res\\values-zu\\values.xml",
+                    "source": "/home/catarina/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/65810e7273f546511d211c3f99fc7d5f/res/values-zu/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",

@@ -15,19 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "424903682463-urv9b4tk3konfvg8r7066n6ms1h774md.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "icm.greencities",
-            "certificate_hash": "069797cc3274aa57cd049911fb5d45930f11b80f"
-          }
-        },
-        {
-          "client_id": "424903682463-t64oj1v3g4ard8rj9k9p4dk3edvdkksn.apps.googleusercontent.com",
+          "client_id": "424903682463-ha6iju022u0273v8km8bbmpk96aqq3e6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "icm.greencities",
             "certificate_hash": "71de346b33b2bc4125255002958a64ecff657543"
+          }
+        },
+        {
+          "client_id": "424903682463-f94vmll78i21driu931dpk74ihsl1ct3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "icm.greencities",
+            "certificate_hash": "7e41ff74465e73e0843e42559a870671cfadd533"
           }
         },
         {
