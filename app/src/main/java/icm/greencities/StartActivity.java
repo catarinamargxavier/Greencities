@@ -19,15 +19,20 @@ import com.google.android.gms.location.DetectedActivity;
 
 public class StartActivity extends AppCompatActivity {
 
+    // GPSTracker class
+    GPSTracker gps;
+
     public static final String BROADCAST_DETECTED_ACTIVITY = "activity_intent";
     public static final int CONFIDENCE = 70;
 
     private String TAG = MainActivity.class.getSimpleName();
     BroadcastReceiver broadcastReceiver;
 
-    private TextView txtActivity;
+    private TextView txtActivity, txtLocation, txtDistance;
     private ImageView imgActivity;
     private Button btnStartTracking, btnStopTracking;
+
+    private double startLat, startLong, endLat, endLong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,8 @@ public class StartActivity extends AppCompatActivity {
 
         txtActivity = findViewById(R.id.txt_activity);
         imgActivity = findViewById(R.id.img_activity);
+        txtLocation = findViewById(R.id.txt_location);
+        txtDistance = findViewById(R.id.txt_distance);
         btnStartTracking = findViewById(R.id.btn_start_tracking);
         btnStopTracking = findViewById(R.id.btn_stop_tracking);
 
@@ -52,6 +59,7 @@ public class StartActivity extends AppCompatActivity {
                 stopTracking();
             }
         });
+        gps = new GPSTracker(StartActivity.this);
 
         broadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -59,10 +67,15 @@ public class StartActivity extends AppCompatActivity {
                 if (intent.getAction().equals(BROADCAST_DETECTED_ACTIVITY)) {
                     int type = intent.getIntExtra("type", -1);
                     int confidence = intent.getIntExtra("confidence", 0);
+                    /*double[] coords = getLocation();
+                    startLat = coords[0];
+                    startLong = coords[1];
+                    */
                     handleUserActivity(type, confidence);
                 }
             }
         };
+
 
         //startTracking();
     }
@@ -98,12 +111,39 @@ public class StartActivity extends AppCompatActivity {
             }
         }
 
+
+        /*double[] coords = getLocation();
+        endLat = coords[0];
+        endLong = coords[1];
+        float[] results = new float[0];
+        Location.distanceBetween(startLat, endLat, startLong, endLong, results);
+        */
+
+        txtLocation.setText("Lat:" + getLocation()[0] +  "\nLong: " + getLocation()[1]);
+        //txtDistance.setText(""+results[0]+"");
         Log.e(TAG, "User activity: " + label + ", Confidence: " + confidence);
 
         if (confidence > CONFIDENCE) {
             txtActivity.setText(label);
             imgActivity.setImageResource(icon);
         }
+    }
+
+    private double[] getLocation() {
+        // Check if GPS enabled
+        double latitude;
+        double longitude;
+        if(gps.canGetLocation()) {
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
+
+        } else {
+            // Show Settings when GPS or network is not enable
+            gps.showSettingsAlert();
+            latitude=0;
+            longitude=0;
+        }
+        return new double[]{latitude, longitude};
     }
 
     @Override
@@ -125,12 +165,13 @@ public class StartActivity extends AppCompatActivity {
         Intent intent = new Intent(StartActivity.this, BackgroundDetectedActivitiesService.class);
         startService(intent);
         // Get Start Position to calculate distance
-        //LocationManager startLocation = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        //double startLat = startLocation.getLastKnownLocation();
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
     }
 
     private void stopTracking() {
         Intent intent = new Intent(StartActivity.this, BackgroundDetectedActivitiesService.class);
         stopService(intent);
     }
+
 }
