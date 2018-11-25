@@ -31,10 +31,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ForgetPassword" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".ProfileAtivity" />
+        <activity android:name=".ForgetPassword"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ProfileAtivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".NavigationDrawer"
             android:label="@string/title_activity_navigation_drawer"
@@ -42,7 +46,8 @@
         <activity
             android:name=".StartActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ResultsMain" />
+        <activity android:name=".ResultsMain"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".DetectedActivitiesIntentService"
@@ -50,7 +55,8 @@
         <service android:name=".BackgroundDetectedActivitiesService" />
 
         <activity android:name="icm.entities.Discount" />
-        <activity android:name=".Goals" />
+        <activity android:name=".Goals"
+            android:screenOrientation="portrait"/>
         <activity android:name="icm.entities.QRCodeGenerator"></activity>
     </application>
 
