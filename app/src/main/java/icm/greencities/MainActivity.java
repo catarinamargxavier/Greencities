@@ -11,6 +11,8 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import icm.entities.QRCodeGenerator;
+
 public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
@@ -74,6 +76,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, QRCodeGenerator.class));
+            }
+        });
+
+
+        Button btnGoals = (Button) findViewById(R.id.buttonGoals);
+
+        btnGoals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, Goals.class));
             }
         });
 

@@ -49,9 +49,9 @@
             android:exported="false" />
         <service android:name=".BackgroundDetectedActivitiesService" />
 
-        <activity android:name=".Discount" />
+        <activity android:name="icm.entities.Discount" />
         <activity android:name=".Goals" />
-        <activity android:name=".QRCodeGenerator"></activity>
+        <activity android:name="icm.entities.QRCodeGenerator"></activity>
     </application>
 
 </manifest>

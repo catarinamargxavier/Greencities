@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.location.DetectedActivity;
+
+import icm.entities.GPSTracker;
 
 public class StartActivity extends AppCompatActivity {
 
