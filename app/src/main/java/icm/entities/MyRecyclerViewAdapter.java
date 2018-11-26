@@ -11,15 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.load.engine.Resource;
-
 import icm.greencities.R;
 
 public class MyRecyclerViewAdapter extends RecyclerView
         .Adapter<MyRecyclerViewAdapter
         .DataObjectHolder> {
     private static String LOG_TAG = "MyRecyclerViewAdapter";
-    private ArrayList<Discount> mDataset;
+    private ArrayList<Discount2> mDataset;
     private static MyClickListener myClickListener;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder
@@ -49,7 +47,7 @@ public class MyRecyclerViewAdapter extends RecyclerView
         this.myClickListener = myClickListener;
     }
 
-    public MyRecyclerViewAdapter(ArrayList<Discount> myDataset) {
+    public MyRecyclerViewAdapter(ArrayList<Discount2> myDataset) {
         mDataset = myDataset;
     }
 
@@ -81,8 +79,8 @@ public class MyRecyclerViewAdapter extends RecyclerView
 
     }
 
-    public void addItem(Discount discountObj, int index) {
-        mDataset.add(index, discountObj);
+    public void addItem(Discount2 discount2Obj, int index) {
+        mDataset.add(index, discount2Obj);
         notifyItemInserted(index);
     }
 

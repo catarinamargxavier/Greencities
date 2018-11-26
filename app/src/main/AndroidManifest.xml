@@ -54,7 +54,7 @@
             android:exported="false" />
         <service android:name=".BackgroundDetectedActivitiesService" />
 
-        <activity android:name="icm.entities.Discount" />
+        <activity android:name="icm.entities.Discount2" />
         <activity android:name=".Goals"
             android:screenOrientation="portrait"/>
         <activity android:name="icm.entities.QRCodeGenerator"></activity>
