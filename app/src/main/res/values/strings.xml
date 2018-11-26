@@ -43,7 +43,7 @@
     <string name="activity_still">Still</string>
     <string name="activity_tilting">Tilting</string>
     <string name="activity_walking">Walking</string>
-
+    <string name="profileUserName">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

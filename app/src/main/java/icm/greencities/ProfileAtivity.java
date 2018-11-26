@@ -8,23 +8,34 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
-
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+
+import icm.entities.User;
 
 public class ProfileAtivity extends AppCompatActivity {
 
@@ -34,11 +45,9 @@ public class ProfileAtivity extends AppCompatActivity {
     StorageReference storageReference;
     private Button btnChoose, btnUpload;
     private ImageView imageView;
-
     private Uri filePath;
-
     private final int PICK_IMAGE_REQUEST = 71;
-
+    private FirebaseFirestore db;
 
 
     @Override    protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +56,24 @@ public class ProfileAtivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+
+        final TextView textViewUser = (TextView) findViewById(R.id.profileUserName);
+        final TextView textViewPoints = (TextView) findViewById(R.id.pointsUser);
+        String email = user.getEmail();
+        DocumentReference docRef = db.collection("users").document(email);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user2 = documentSnapshot.toObject(User.class);
+                textViewUser.setText(user2.getName());
+                textViewPoints.setText(user2.getPoints() + " points");
+            }
+        });
+
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-
-
 
         findViewById(R.id.change_password_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,22 +92,20 @@ public class ProfileAtivity extends AppCompatActivity {
         btnChoose = (Button) findViewById(R.id.btnChoose);
         btnUpload = (Button) findViewById(R.id.btnUpload);
         imageView = (ImageView) findViewById(R.id.imgView);
-
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseImage();
             }
         });
-
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 uploadImage();
             }
         });
-
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
