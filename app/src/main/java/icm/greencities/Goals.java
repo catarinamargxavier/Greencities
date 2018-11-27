@@ -37,6 +37,7 @@ public class Goals extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private static String LOG_TAG = "CardViewActivity";
     private FirebaseFirestore db;
+    private List<Store> dados = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +81,10 @@ public class Goals extends AppCompatActivity {
             @Override
             public void onCallback(Object value) {
                 for (Object i :(ArrayList) value) {
-                    Log.d("TAG", ((Store) i).getName());
-                    Log.d("TAG", Integer.toString(((Store) i).getId()));
+                    dados.add((Store) i);
+                    //Log.d("TAG", ((Store) i).getName());
+                    //Log.d("TAG", Integer.toString(((Store) i).getId()));
                 }
-
             }
         });
 
@@ -123,6 +124,8 @@ public class Goals extends AppCompatActivity {
                     }
                 });
     }
+
+
 
 
 }
