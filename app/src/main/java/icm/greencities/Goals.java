@@ -23,9 +23,12 @@ import java.lang.reflect.Array;
 import java.util.AbstractQueue;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import icm.entities.Discount2;
+import icm.entities.Discount;
 import icm.entities.MyCallback;
 import icm.entities.MyRecyclerViewAdapter;
 import icm.entities.Store;
@@ -37,7 +40,10 @@ public class Goals extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private static String LOG_TAG = "CardViewActivity";
     private FirebaseFirestore db;
-    private List<Store> dados = new ArrayList<>();
+    private Map<String, Store> dados = new HashMap<>();
+    private List <Discount> aux = new ArrayList<>();
+    private int count;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +56,18 @@ public class Goals extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        // NEW
+        getData();
+        // END OF NEW
+
+
+
+        // HERE GET DATA
         mAdapter = new MyRecyclerViewAdapter(getDataSet());
+        // END OF GET DATA
         mRecyclerView.setAdapter(mAdapter);
+
 
         // Code to Add an item with default animation
         //((MyRecyclerViewAdapter) mAdapter).addItem(obj, index);
@@ -75,21 +91,75 @@ public class Goals extends AppCompatActivity {
     }
 
 
-    private ArrayList<Discount2> getDataSet() {
+    private void getData () {
 
         readData(new MyCallback() {
             @Override
             public void onCallback(Object value) {
-                for (Object i :(ArrayList) value) {
-                    dados.add((Store) i);
-                    //Log.d("TAG", ((Store) i).getName());
-                    //Log.d("TAG", Integer.toString(((Store) i).getId()));
+                dados = (Map<String, Store>) value;
+                count = 0;
+                for (Map.Entry<String, Store> i : dados.entrySet()) {
+                    id = i.getKey();
+                    //Log.d("Tag4", id);
+                    getAuxData();
+                    //Log.d("Tag3", "CUCU IT'S ME MARIO");
                 }
             }
         });
 
+    }
+
+
+    private void getAuxData () {
+
+            //Log.d("Tag3", "OHLALA OHLALA");
+            final String id2 = id;
+            readMoreData(id2, new MyCallback() {
+                @Override
+                public void onCallback(Object value) {
+                    //Log.d("Tag3", Arrays.toString(((List<Discount>) value).toArray()));
+                    //Log.d("Tag3", "NLAAAAAAAAAAAAAAAAAA");
+                    //List <Discount> aux2 = (List<Discount>) value;
+                    //Log.d("Tag3", Integer.toString(aux2.size()));
+                    count ++;
+                    Log.d("Tag5", id2);
+                    Store j = dados.get(id2);
+                    j.setDiscount((List<Discount>) value);
+                    dados.put(id2, j);
+                    //Log.d("Tag3", Integer.toString(((List<Discount>) value).size()));
+                    if (count == dados.size()) {
+                        presentToUser();
+                    }
+                }
+            });
+    }
+
+
+    private void presentToUser() {
+        // HERE GET DATA
+        mAdapter = new MyRecyclerViewAdapter(getDataSet());
+        // END OF GET DATA
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+
+    private ArrayList<Discount2> getDataSet() {
+
         ArrayList results = new ArrayList<Discount2>();
-        Discount2 discount = new Discount2(312,"30% Desconto na FNAC", "Numa compra superior a 100€, oferta de 30% de desconto.", "Fnac", "500 points");
+
+        if (dados.size() != 0) {
+            for (Map.Entry<String, Store> i : dados.entrySet()) {
+                //Log.d("Tag3", Integer.toString(i.getValue().getDiscount().size()));
+                for (Discount desconto: i.getValue().getDiscount()) {
+                    //Log.d("Tag3", "KIKIKI");
+                    Discount2 discount = new Discount2(Integer.parseInt(i.getKey()),desconto.getTitle(), desconto.getDescription(), i.getValue().getName(), Integer.toString(desconto.getValue()) + " points");
+                    results.add(discount);
+                }
+            }
+        }
+
+
+        /*
         results.add(0, discount);
         Discount2 discount21 = new Discount2(22,"5€ em Sapatilhas na SportZone", "Desconto de 5€ numa compra superior a 40€", "SportZone", "300 points");
         results.add(1, discount21);
@@ -98,7 +168,8 @@ public class Goals extends AppCompatActivity {
         Discount2 discount23 = new Discount2(421,"Rodizio Pizza a 8,5€", "Desconto no Rodizio de Pizza", "Pizza Hut", "75 points");
         results.add(3, discount23);
         results.add(4, discount21);
-        results.add(5, discount22);
+        results.add(5, discount22);*/
+
         return results;
     }
 
@@ -110,12 +181,12 @@ public class Goals extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            List<Store> stores = new ArrayList<>();
+                            Map<String, Store> stores = new HashMap<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 //Log.d("sucess", document.getId() + " => " + document.getData());
                                 Store loja = document.toObject(Store.class);
-                                loja.setId(Integer.parseInt(document.getId()));
-                                stores.add(loja);
+                                //loja.setId(Integer.parseInt(document.getId()));
+                                stores.put(document.getId(), loja);
                             }
                             myCallback.onCallback(stores);
                         } else {
@@ -126,6 +197,31 @@ public class Goals extends AppCompatActivity {
     }
 
 
+    private void readMoreData (String id, final MyCallback myCallback) {
+        db.collection("stores").document(id).collection("discount")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<Discount> discounts = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                //Log.d("sucess", document.getId() + " => " + document.getData());
+                                Discount desconto = document.toObject(Discount.class);
+                                desconto.setId(Integer.parseInt(document.getId()));
+                                discounts.add(desconto);
+                            }
+                            myCallback.onCallback(discounts);
+                        } else {
+                            Log.d("error", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
 
 
 }
+
+
+
+

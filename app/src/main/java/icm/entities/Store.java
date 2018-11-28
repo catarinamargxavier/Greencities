@@ -7,7 +7,6 @@ public class Store {
 
     private String name;
     private List<Discount> discount = new ArrayList<>();
-    private int id;
 
     public String getName() {
         return name;
@@ -25,11 +24,4 @@ public class Store {
         this.discount = discount;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }
