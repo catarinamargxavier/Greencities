@@ -67,7 +67,7 @@
                 android:layout_toEndOf="@+id/storeLogo" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/buttonSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="38dp"
                 android:layout_alignParentEnd="true"

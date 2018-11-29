@@ -20,7 +20,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:text="@string/profileUserName"
         android:textAllCaps="true"
         android:textSize="16sp" />
 
@@ -30,7 +29,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:text="xxx points"
         android:textAllCaps="true"
         android:textSize="16sp"
         android:textStyle="bold" />
