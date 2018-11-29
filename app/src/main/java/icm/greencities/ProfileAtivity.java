@@ -1,5 +1,6 @@
 package icm.greencities;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,6 +15,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,12 +46,13 @@ public class ProfileAtivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     FirebaseStorage storage;
+    FirebaseFirestore db;
     StorageReference storageReference;
+    private User userData;
     private Button btnChoose, btnUpload;
     private ImageView imageView;
     private Uri filePath;
     private final int PICK_IMAGE_REQUEST = 71;
-    private FirebaseFirestore db;
 
 
     @Override    protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,7 @@ public class ProfileAtivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
+        imageView = (ImageView) findViewById(R.id.imgView);
 
         final TextView textViewUser = (TextView) findViewById(R.id.profileUserName);
         final TextView textViewPoints = (TextView) findViewById(R.id.pointsUser);
@@ -65,12 +71,12 @@ public class ProfileAtivity extends AppCompatActivity {
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                User user2 = documentSnapshot.toObject(User.class);
-                textViewUser.setText(user2.getName());
-                textViewPoints.setText(user2.getPoints() + " points");
+                userData = documentSnapshot.toObject(User.class);
+                textViewUser.setText(userData.getName());
+                textViewPoints.setText(userData.getPoints() + " points");
+                loadImage();
             }
         });
-
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -91,7 +97,7 @@ public class ProfileAtivity extends AppCompatActivity {
         //Initialize Views
         btnChoose = (Button) findViewById(R.id.btnChoose);
         btnUpload = (Button) findViewById(R.id.btnUpload);
-        imageView = (ImageView) findViewById(R.id.imgView);
+        //imageView = (ImageView) findViewById(R.id.imgView);
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,6 +110,28 @@ public class ProfileAtivity extends AppCompatActivity {
                 uploadImage();
             }
         });
+    }
+
+
+    private void loadImage () {
+        /*
+        StorageReference gsReference = storage.getReferenceFromUrl(userData.getImage());
+        Glide.with(this)
+                .using(new FirebaseImageLoader())
+                .load(storageReference)
+                .into(imageView);
+        */
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String imageId = "photoUser.jpg";  // or whatever you want to call it
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference ref = storage.getReference()
+                .child("images")
+                .child(userId)
+                .child(imageId);
+        Glide.with(this)
+                .using(new FirebaseImageLoader())
+                .load(storageReference)
+                .into(imageView);
     }
 
 
@@ -149,8 +177,25 @@ public class ProfileAtivity extends AppCompatActivity {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
-
+            //Log.d("Tag3", filePath.toString());
             StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+            DocumentReference doc = db.collection("users").document(user.getEmail());
+
+            doc
+                .update("image", ref.toString())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("Sucess", "DocumentSnapshot successfully updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("Failure", "Error updating document", e);
+                    }
+                });
+
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override

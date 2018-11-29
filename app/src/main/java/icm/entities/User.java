@@ -6,6 +6,7 @@ public class User {
     private String city;
     private String country;
     private int points;
+    private String image;
 
     public String getName() {
         return name;
@@ -37,5 +38,13 @@ public class User {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

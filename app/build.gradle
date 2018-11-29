@@ -48,6 +48,8 @@ dependencies {
 
     implementation 'com.google.zxing:core:3.2.1'
 
+    implementation 'com.firebaseui:firebase-ui-storage:0.6.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
