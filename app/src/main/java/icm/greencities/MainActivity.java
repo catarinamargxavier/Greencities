@@ -1,12 +1,15 @@
 package icm.greencities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -52,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btnProfile = (Button) findViewById(R.id.buttonProfile);
-
+        LinearLayout btnProfile = (LinearLayout) findViewById(R.id.buttonProfile);
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,31 +63,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btnStartActivity = (Button) findViewById(R.id.buttonStart);
 
-        btnStartActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, StartActivity.class));
-            }
-        });
-
-        Button btnResults = (Button) findViewById(R.id.buttonResults);
-
+        LinearLayout btnResults = (LinearLayout) findViewById(R.id.buttonResults);
         btnResults.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, QRCodeGenerator.class));
             }
         });
 
 
-        Button btnGoals = (Button) findViewById(R.id.buttonGoals);
-
-        btnGoals.setOnClickListener(new View.OnClickListener() {
+        LinearLayout menu_Goals = (LinearLayout)findViewById(R.id.buttonGoals);
+        menu_Goals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, Goals.class));
+            }
+        });
+
+        LinearLayout menu_startActivity = (LinearLayout)findViewById(R.id.buttonStart);
+        menu_startActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, StartActivity.class));
             }
         });
 

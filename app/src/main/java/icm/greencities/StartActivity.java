@@ -82,9 +82,8 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void handleUserActivity(int type, int confidence) {
-        String label = getString(R.string.activity_unknown);
+        String label = getString(R.string.activity_still);
         int icon = R.drawable.ic_still;
-
         switch (type) {
             case DetectedActivity.IN_VEHICLE: {
                 label = getString(R.string.activity_in_vehicle);
@@ -103,6 +102,7 @@ public class StartActivity extends AppCompatActivity {
             }
             case DetectedActivity.STILL: {
                 label = getString(R.string.activity_still);
+                icon = R.drawable.ic_still;
                 break;
             }
             case DetectedActivity.WALKING: {
@@ -122,7 +122,6 @@ public class StartActivity extends AppCompatActivity {
 
         txtLocation.setText("Lat:" + getLocation()[0] +  "\nLong: " + getLocation()[1]);
         //txtDistance.setText(""+results[0]+"");
-        Log.e(TAG, "User activity: " + label + ", Confidence: " + confidence);
 
         if (confidence > CONFIDENCE) {
             txtActivity.setText(label);

@@ -149,9 +149,7 @@ public class Goals extends AppCompatActivity {
 
         if (dados.size() != 0) {
             for (Map.Entry<String, Store> i : dados.entrySet()) {
-                //Log.d("Tag3", Integer.toString(i.getValue().getDiscount().size()));
                 for (Discount desconto: i.getValue().getDiscount()) {
-                    //Log.d("Tag3", "KIKIKI");
                     Discount2 discount = new Discount2(Integer.parseInt(i.getKey()),desconto.getTitle(), desconto.getDescription(), i.getValue().getName(), Integer.toString(desconto.getValue()) + " points");
                     results.add(discount);
                 }
