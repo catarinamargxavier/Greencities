@@ -122,7 +122,7 @@ public class Goals extends AppCompatActivity {
                     //List <Discount> aux2 = (List<Discount>) value;
                     //Log.d("Tag3", Integer.toString(aux2.size()));
                     count ++;
-                    Log.d("Tag5", id2);
+                    //Log.d("Tag5", id2);
                     Store j = dados.get(id2);
                     j.setDiscount((List<Discount>) value);
                     dados.put(id2, j);

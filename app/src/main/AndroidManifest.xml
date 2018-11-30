@@ -15,6 +15,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-feature android:name="android.hardware.location.gps" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -31,14 +33,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ForgetPassword"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".LoginActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".RegisterActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ProfileAtivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ForgetPassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ProfileAtivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NavigationDrawer"
             android:label="@string/title_activity_navigation_drawer"
@@ -46,8 +52,9 @@
         <activity
             android:name=".StartActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ResultsMain"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ResultsMain"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".DetectedActivitiesIntentService"
@@ -55,9 +62,22 @@
         <service android:name=".BackgroundDetectedActivitiesService" />
 
         <activity android:name="icm.entities.Discount2" />
-        <activity android:name=".Goals"
-            android:screenOrientation="portrait"/>
-        <activity android:name="icm.entities.QRCodeGenerator"></activity>
+        <activity
+            android:name=".Goals"
+            android:screenOrientation="portrait" />
+        <activity android:name="icm.entities.QRCodeGenerator" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
     </application>
 
 </manifest>
