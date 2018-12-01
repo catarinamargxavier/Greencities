@@ -28,6 +28,7 @@
             android:textColor="@color/colorPrimary"
             android:textSize="18dp"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/txt_location"
             android:layout_width="wrap_content"
@@ -63,4 +64,25 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:text="Stop Tracking" />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/circle"
+        android:drawableTop="@android:drawable/ic_media_play"
+        android:paddingTop="30dp"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/countTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="156dp"
+        android:layout_marginBottom="92dp"
+        android:textSize="25dp"
+        android:text="TextView" />
+
+
 </RelativeLayout>

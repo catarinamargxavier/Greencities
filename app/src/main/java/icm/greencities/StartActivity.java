@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 import com.google.android.gms.location.DetectedActivity;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import icm.entities.GPSTracker;
 
 public class StartActivity extends AppCompatActivity {
@@ -28,6 +31,9 @@ public class StartActivity extends AppCompatActivity {
 
     private String TAG = MainActivity.class.getSimpleName();
     BroadcastReceiver broadcastReceiver;
+    Timer T;
+    TextView myTextView;
+    int count = 0;
 
     private TextView txtActivity, txtLocation, txtDistance;
     private ImageView imgActivity;
@@ -149,7 +155,6 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver,
                 new IntentFilter(BROADCAST_DETECTED_ACTIVITY));
     }
@@ -157,7 +162,6 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
     }
 
@@ -166,12 +170,29 @@ public class StartActivity extends AppCompatActivity {
         startService(intent);
         // Get Start Position to calculate distance
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        myTextView = findViewById(R.id.countTime);
+        T=new Timer();
+        T.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        myTextView.setText("count="+count);
+                        count++;
+                    }
+                });
+            }
+        }, 1000, 1000);
 
     }
 
     private void stopTracking() {
         Intent intent = new Intent(StartActivity.this, BackgroundDetectedActivitiesService.class);
         stopService(intent);
+        T.cancel();
     }
 
 }

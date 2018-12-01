@@ -1,5 +1,6 @@
 package icm.greencities;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 
 import com.google.android.gms.location.LocationServices;
@@ -28,12 +30,17 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.concurrent.TimeUnit;
+
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_LOCATION = 1;
     FirebaseAuth auth;
     FirebaseUser user;
     Button btnSignOut;
     ProgressDialog PD;
+    GoogleMap googleMap;
+    Location location;
 
 
     @Override
@@ -110,7 +117,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-    @Override    protected void onResume() {
+    @Override
+    protected void onResume() {
         if (auth.getCurrentUser() == null) {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
@@ -121,17 +129,59 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(GoogleMap map) {
-        map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-        GPSTracker gps = new GPSTracker(this);
-        double latitude = gps.getLatitude();
-        double longitude = gps.getLongitude();
-        map.addMarker(new MarkerOptions()
-                .position(new LatLng(latitude, longitude))
-                .title("Marker"));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
-        map.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
+        googleMap = map;
+        googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        askPermissions();
     }
 
+
+    private void askPermissions() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions( this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_ACCESS_LOCATION);
+        } else {
+            represent(true);
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_ACCESS_LOCATION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    represent(true);
+                } else {
+                    represent(false);
+                }
+                return;
+            }
+        }
+    }
+
+
+    private void represent (boolean permission) {
+        double latitude = 0;
+        double longitude = 0;
+        if (permission) {
+            GPSTracker gps = new GPSTracker(this);
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
+        } else {
+            Context context = getApplicationContext();
+            CharSequence text = "It's necessary to enable location permissions";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+            latitude = 38.7166700;
+            longitude =  -9.1333300;
+            //Log.d("Tag8", "Hello!");
+        }
+        googleMap.addMarker(new MarkerOptions()
+                .position(new LatLng(latitude, longitude))
+                .title("Marker"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
+    }
 
 
 }
