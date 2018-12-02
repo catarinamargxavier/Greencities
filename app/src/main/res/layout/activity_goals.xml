@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Goals">
+    tools:context=".Goals"
+    android:background="@color/black">
 
     <TextView
         android:id="@+id/title"
@@ -15,6 +16,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="Goals"
+        android:textColor="@color/white"
         android:textAllCaps="true"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +32,7 @@
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        android:background="@drawable/girlbike"/>
+        />
 
 
 </android.support.constraint.ConstraintLayout>
