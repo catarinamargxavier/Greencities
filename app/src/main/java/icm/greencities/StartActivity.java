@@ -52,7 +52,7 @@ public class StartActivity extends AppCompatActivity {
     int count = 0;
 
     private TextView txtActivity, txtLocation, txtDistance;
-    private ImageView imgActivity;
+    private ImageView imgActivity, imgKm;
     private Button btnStartTracking, btnStopTracking;
 
     private double startLat, startLong, endLat, endLong, lastLat, lastLong;
@@ -75,6 +75,7 @@ public class StartActivity extends AppCompatActivity {
         imgActivity = findViewById(R.id.img_activity);
         txtLocation = findViewById(R.id.txt_location);
         txtDistance = findViewById(R.id.txt_distance);
+        imgKm = findViewById(R.id.imageKM);
         btnStartTracking = findViewById(R.id.btn_start_tracking);
         btnStopTracking = findViewById(R.id.btn_stop_tracking);
 
@@ -113,6 +114,7 @@ public class StartActivity extends AppCompatActivity {
                 }
             }
         };
+        btnStopTracking.setVisibility(View.GONE);
 
     }
 
@@ -123,6 +125,7 @@ public class StartActivity extends AppCompatActivity {
             case DetectedActivity.IN_VEHICLE: {
                 label = getString(R.string.activity_in_vehicle);
                 icon = R.drawable.ic_bus;
+
                 break;
             }
             case DetectedActivity.ON_BICYCLE: {
@@ -165,6 +168,7 @@ public class StartActivity extends AppCompatActivity {
         if (confidence > CONFIDENCE) {
             txtActivity.setText(label);
             imgActivity.setImageResource(icon);
+            imgKm.setImageResource(icon);
         }
     }
 
@@ -199,6 +203,9 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void startTracking() {
+        btnStopTracking.setVisibility(View.VISIBLE);
+        btnStartTracking.setVisibility(View.GONE);
+
         Intent intent = new Intent(StartActivity.this, BackgroundDetectedActivitiesService.class);
         startService(intent);
         // Get Start Position to calculate distance
@@ -277,6 +284,8 @@ public class StartActivity extends AppCompatActivity {
             coordenadas.add(ponto);
         }
         submit();
+        btnStartTracking.setVisibility(View.VISIBLE);
+        btnStopTracking.setVisibility(View.GONE);
         //Log.d("Tag8", "Time " + count);
     }
 
