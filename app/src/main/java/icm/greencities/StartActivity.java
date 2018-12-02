@@ -114,8 +114,6 @@ public class StartActivity extends AppCompatActivity {
             }
         };
 
-
-        //startTracking();
     }
 
     private void handleUserActivity(int type, int confidence) {
