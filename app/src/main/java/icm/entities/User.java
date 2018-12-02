@@ -7,6 +7,7 @@ public class User {
     private String country;
     private int points;
     private String image;
+    private int nActivities;
 
     public String getName() {
         return name;
@@ -46,5 +47,13 @@ public class User {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getnActivities() {
+        return nActivities;
+    }
+
+    public void setnActivities(int nActivities) {
+        this.nActivities = nActivities;
     }
 }
