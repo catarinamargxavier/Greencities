@@ -4,6 +4,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
@@ -33,9 +37,11 @@ import java.util.TimerTask;
 
 import icm.entities.Activity;
 import icm.entities.GPSTracker;
+import icm.entities.StepDetector;
+import icm.entities.StepListener;
 import icm.entities.User;
 
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity implements SensorEventListener, StepListener {
 
     // GPSTracker class
     GPSTracker gps;
@@ -52,11 +58,11 @@ public class StartActivity extends AppCompatActivity {
     TextView myTextView4;
     int count = 0;
 
-    private TextView txtActivity, txtLocation, txtDistance;
+    private TextView txtActivity, txtDistance;
     private ImageView imgActivity, imgKm;
     private Button btnStartTracking, btnStopTracking;
 
-    private double startLat, startLong, endLat, endLong, lastLat, lastLong;
+    private double startLat, startLong, lastLat, lastLong;
 
 
     private FirebaseAuth auth;
@@ -68,6 +74,14 @@ public class StartActivity extends AppCompatActivity {
 
     private String doing;
 
+    private TextView TvSteps;
+    private StepDetector simpleStepDetector;
+    private SensorManager sensorManager;
+    private Sensor accel;
+
+    private int numSteps;
+    double newDistance;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +89,6 @@ public class StartActivity extends AppCompatActivity {
 
         txtActivity = findViewById(R.id.txt_activity);
         imgActivity = findViewById(R.id.img_activity);
-        txtLocation = findViewById(R.id.txt_location);
         txtDistance = findViewById(R.id.txt_distance);
         imgKm = findViewById(R.id.imageKM);
         btnStartTracking = findViewById(R.id.btn_start_tracking);
@@ -90,6 +103,8 @@ public class StartActivity extends AppCompatActivity {
         btnStartTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                numSteps = 0;
+                sensorManager.registerListener(StartActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
                 startTracking();
             }
         });
@@ -97,7 +112,9 @@ public class StartActivity extends AppCompatActivity {
         btnStopTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sensorManager.unregisterListener(StartActivity.this);
                 stopTracking();
+
             }
         });
         gps = new GPSTracker(StartActivity.this);
@@ -113,6 +130,16 @@ public class StartActivity extends AppCompatActivity {
             }
         };
         btnStopTracking.setVisibility(View.GONE);
+
+        // Get an instance of the SensorManager
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        simpleStepDetector = new StepDetector();
+        simpleStepDetector.registerListener(this);
+
+        TvSteps = (TextView) findViewById(R.id.tv_steps);
+
+
 
     }
 
@@ -244,8 +271,8 @@ public class StartActivity extends AppCompatActivity {
                         double newLat = newLocation.getLatitude();
                         double newLong = newLocation.getLongitude();
                         if (newLat != lastLat || newLong != lastLong) {
-                            txtLocation.setText("Lat:" + newLat + "\nLong: " + newLong);
-                            distance += Math.sqrt((newLong - lastLong) * (newLong - lastLong) + (newLat - lastLat) * (newLat - lastLat));
+                            //txtLocation.setText("Lat:" + newLat + "\nLong: " + newLong);
+                            //distance += Math.sqrt((newLong - lastLong) * (newLong - lastLong) + (newLat - lastLat) * (newLat - lastLat));
                             GeoPoint ponto = new GeoPoint(newLat, newLong);
                             coordenadas.add(ponto);
                             lastLat = newLat;
@@ -253,7 +280,8 @@ public class StartActivity extends AppCompatActivity {
                         };
                         //txtLocation.setText("Lat:" + newLocation.getLatitude() +  "\nLong: " + newLocation.getLongitude());
                         //Log.d("Tag8", "-> " + distance + "m");
-                        txtDistance.setText(String.format("%.2f m",distance));
+                        newDistance = 0.76*numSteps;
+                        txtDistance.setText(String.format("%.2f m",newDistance));
 
 
                     }
@@ -311,6 +339,24 @@ public class StartActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            simpleStepDetector.updateAccel(
+                    event.timestamp, event.values[0], event.values[1], event.values[2]);
+        }
+    }
+
+    @Override
+    public void step(long timeNs) {
+        numSteps++;
+        TvSteps.setText(numSteps+"");
     }
 
 }
