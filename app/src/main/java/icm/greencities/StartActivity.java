@@ -155,25 +155,25 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
             case DetectedActivity.ON_BICYCLE: {
                 label = getString(R.string.activity_on_bicycle);
                 icon = R.drawable.ic_on_bicycle;
-                doing = "bicycling";
+                doing = "Bicycling";
                 break;
             }
             case DetectedActivity.RUNNING: {
                 label = getString(R.string.activity_running);
                 icon = R.drawable.ic_running;
-                doing = "running";
+                doing = "Running";
                 break;
             }
             case DetectedActivity.STILL: {
                 label = getString(R.string.activity_still);
                 icon = R.drawable.ic_still;
-                doing = "nothing";
+                doing = "Nothing";
                 break;
             }
             case DetectedActivity.WALKING: {
                 label = getString(R.string.activity_walking);
                 icon = R.drawable.ic_walking;
-                doing = "walking";
+                doing = "Walking";
                 break;
             }
         }

@@ -62,7 +62,7 @@ public class MyRecyclerViewAdapterResults extends RecyclerView
     public void onBindViewHolder(DataObjectHolder holder, int position) {
         holder.activity.setText(mDataset.get(position).getActivity());
         holder.distance.setText(mDataset.get(position).getDistance()+"");
-        holder.time.setText(mDataset.get(position).getTime());
+        holder.time.setText(mDataset.get(position).getTime()+"");
         holder.date.setText("3 dez 2018");
 
 
@@ -73,23 +73,20 @@ public class MyRecyclerViewAdapterResults extends RecyclerView
         if (mDataset.get(position).getActivity() == "walking")
             holder.actIcon.setImageResource(R.drawable.ic_walking);
 
-
     }
 
-    public void addItem(Activity act, int index) {
-        mDataset.add(index, act);
-        notifyItemInserted(index);
-    }
 
     public void deleteItem(int index) {
         mDataset.remove(index);
         notifyItemRemoved(index);
     }
 
+
     @Override
     public int getItemCount() {
         return mDataset.size();
     }
+
 
     public interface MyClickListener {
         public void onItemClick(int position, View v);
