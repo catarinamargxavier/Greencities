@@ -262,11 +262,6 @@ public class StartActivity extends AppCompatActivity {
         }, 1000, 1000);
 
     }
-
-    private double degreesToRadians(double degrees) {
-        return degrees * Math.PI / 180;
-    }
-
     private void stopTracking() {
         Intent intent = new Intent(StartActivity.this, BackgroundDetectedActivitiesService.class);
         stopService(intent);

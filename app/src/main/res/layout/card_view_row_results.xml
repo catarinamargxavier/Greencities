@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="10dp"
+        android:background="@color/colorPrimaryDark">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+
+            <LinearLayout
+                android:id="@+id/imageLayout"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/colorPrimaryDark">
+
+
+                <ImageView
+                    android:id="@+id/imageViewActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/textAtivityType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:layout_toEndOf="@+id/imageLayout" />
+
+            <LinearLayout
+                android:id="@+id/layoutIcons"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/textAtivityType"
+                android:layout_toEndOf="@+id/imageLayout"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageActivity"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:srcCompat="@drawable/ic_running"
+                    />
+
+                <ImageView
+                    android:id="@+id/imageTime"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
+                    app:srcCompat="@drawable/ic_alarm_black_24dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/imageDate"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
+                    app:srcCompat="@drawable/ic_menu_share"
+                    />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/textDistance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textAtivityType"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_toEndOf="@+id/layoutIcons"/>
+
+            <TextView
+                android:id="@+id/textTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textDistance"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_toEndOf="@+id/layoutIcons"/>
+
+            <TextView
+                android:id="@+id/textDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textTime"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_toEndOf="@+id/layoutIcons"/>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>
