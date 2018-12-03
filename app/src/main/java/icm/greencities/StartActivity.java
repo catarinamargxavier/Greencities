@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.location.Location;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
@@ -57,6 +58,7 @@ public class StartActivity extends AppCompatActivity {
 
     private double startLat, startLong, endLat, endLong, lastLat, lastLong;
 
+
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseFirestore db;
@@ -106,10 +108,6 @@ public class StartActivity extends AppCompatActivity {
                 if (intent.getAction().equals(BROADCAST_DETECTED_ACTIVITY)) {
                     int type = intent.getIntExtra("type", -1);
                     int confidence = intent.getIntExtra("confidence", 0);
-                    /*double[] coords = getLocation();
-                    startLat = coords[0];
-                    startLong = coords[1];
-                    */
                     handleUserActivity(type, confidence);
                 }
             }
@@ -125,7 +123,6 @@ public class StartActivity extends AppCompatActivity {
             case DetectedActivity.IN_VEHICLE: {
                 label = getString(R.string.activity_in_vehicle);
                 icon = R.drawable.ic_bus;
-
                 break;
             }
             case DetectedActivity.ON_BICYCLE: {
@@ -155,15 +152,6 @@ public class StartActivity extends AppCompatActivity {
         }
 
 
-        /*double[] coords = getLocation();
-        endLat = coords[0];
-        endLong = coords[1];
-        float[] results = new float[0];
-        Location.distanceBetween(startLat, endLat, startLong, endLong, results);
-        */
-
-        txtLocation.setText("Lat:" + getLocation()[0] +  "\nLong: " + getLocation()[1]);
-        //txtDistance.setText(""+results[0]+"");
 
         if (confidence > CONFIDENCE) {
             txtActivity.setText(label);
@@ -174,8 +162,8 @@ public class StartActivity extends AppCompatActivity {
 
     private double[] getLocation() {
         // Check if GPS enabled
-        double latitude;
-        double longitude;
+        double latitude = 0;
+        double longitude = 0;
         if(gps.canGetLocation()) {
             latitude = gps.getLatitude();
             longitude = gps.getLongitude();
@@ -183,8 +171,6 @@ public class StartActivity extends AppCompatActivity {
         } else {
             // Show Settings when GPS or network is not enable
             gps.showSettingsAlert();
-            latitude=0;
-            longitude=0;
         }
         return new double[]{latitude, longitude};
     }
@@ -208,18 +194,18 @@ public class StartActivity extends AppCompatActivity {
 
         Intent intent = new Intent(StartActivity.this, BackgroundDetectedActivitiesService.class);
         startService(intent);
-        // Get Start Position to calculate distance
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
         myTextView = findViewById(R.id.countTime);
         myTextView2 = findViewById(R.id.countTime2);
         myTextView3 = findViewById(R.id.countTime3);
         myTextView4 = findViewById(R.id.countTime4);
 
-        startLat = getLocation()[0];
-        startLong = getLocation()[1];
+        Location location = gps.getLocation();
+        startLat = location.getLatitude();
+        startLong = location.getLongitude();
         coordenadas.add(new GeoPoint(startLat, startLong));
-        lastLat = getLocation()[0];
-        lastLong = getLocation()[1];
+        lastLat = startLat;
+        lastLong = startLong;
 
         T=new Timer();
         T.scheduleAtFixedRate(new TimerTask() {
@@ -254,22 +240,31 @@ public class StartActivity extends AppCompatActivity {
                             myTextView3.setText(String.valueOf(segundos.charAt(0)));
                             myTextView4.setText(String.valueOf(segundos.charAt(1)));
                         }
-                        double newLat = getLocation()[0];
-                        double newLong = getLocation()[1];
+                        Location newLocation = gps.getLocation();
+                        double newLat = newLocation.getLatitude();
+                        double newLong = newLocation.getLongitude();
                         if (newLat != lastLat || newLong != lastLong) {
                             txtLocation.setText("Lat:" + newLat + "\nLong: " + newLong);
                             distance += Math.sqrt((newLong - lastLong) * (newLong - lastLong) + (newLat - lastLat) * (newLat - lastLat));
                             GeoPoint ponto = new GeoPoint(newLat, newLong);
                             coordenadas.add(ponto);
-                            lastLat = getLocation()[0];
-                            lastLong = getLocation()[1];
-                        }
+                            lastLat = newLat;
+                            lastLong = newLong;
+                        };
+                        //txtLocation.setText("Lat:" + newLocation.getLatitude() +  "\nLong: " + newLocation.getLongitude());
                         //Log.d("Tag8", "-> " + distance + "m");
+                        txtDistance.setText(String.format("%.2f m",distance));
+
+
                     }
                 });
             }
         }, 1000, 1000);
 
+    }
+
+    private double degreesToRadians(double degrees) {
+        return degrees * Math.PI / 180;
     }
 
     private void stopTracking() {
@@ -286,9 +281,11 @@ public class StartActivity extends AppCompatActivity {
         submit();
         btnStartTracking.setVisibility(View.VISIBLE);
         btnStopTracking.setVisibility(View.GONE);
+
         //Log.d("Tag8", "Time " + count);
     }
 
+    // Save data in DB
     private void submit () {
         Log.d("Tag8", "HERE!");
         DocumentReference docRef = db.collection("users").document(user.getEmail());
