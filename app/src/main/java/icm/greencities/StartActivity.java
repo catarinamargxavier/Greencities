@@ -19,10 +19,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.DetectedActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -31,6 +33,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -69,6 +73,7 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
     private double newDistance;
     private boolean detected;
     private boolean started;
+    private long time;
 
     private FirebaseAuth auth;
     private FirebaseUser user;
@@ -97,12 +102,9 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
         db = FirebaseFirestore.getInstance();
 
         coordenadas = new ArrayList<>();
-
         btnStartTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numSteps = 0;
-                sensorManager.registerListener(StartActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
                 startTracking();
             }
         });
@@ -150,7 +152,7 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
             case DetectedActivity.ON_BICYCLE: {
                 label = getString(R.string.activity_on_bicycle);
                 icon = R.drawable.ic_on_bicycle;
-                doing = "Bicycling";
+                doing = "Cycling";
                 detected = true;
                 break;
             }
@@ -239,12 +241,13 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
         lastLat = startLat;
         lastLong = startLong;
 
-
-
     }
 
 
     private void countTime() {
+        numSteps = 0;
+        sensorManager.registerListener(StartActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
+        time = (new Timestamp(new Date())).getSeconds();
         T=new Timer();
         T.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -303,15 +306,26 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
     private void stopTracking() {
         Intent intent = new Intent(StartActivity.this, BackgroundDetectedActivitiesService.class);
         stopService(intent);
-        T.cancel();
-        double newLat = getLocation()[0];
-        double newLong = getLocation()[1];
-        if (newLat != lastLat || newLong != lastLong) {
-            distance += Math.sqrt((newLong - lastLong) * (newLong - lastLong) + (newLat - lastLat) * (newLat - lastLat));
-            GeoPoint ponto = new GeoPoint(newLat, newLong);
-            coordenadas.add(ponto);
+        if (count != 0) {
+            T.cancel();
+            double newLat = getLocation()[0];
+            double newLong = getLocation()[1];
+            if (newLat != lastLat || newLong != lastLong) {
+                distance += Math.sqrt((newLong - lastLong) * (newLong - lastLong) + (newLat - lastLat) * (newLat - lastLat));
+                GeoPoint ponto = new GeoPoint(newLat, newLong);
+                coordenadas.add(ponto);
+            }
+            submit();
+            Toast.makeText(
+                    StartActivity.this,
+                    "Activity finished successfully! ",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(
+                    StartActivity.this,
+                    "This activity was not registered. No activity found!",
+                    Toast.LENGTH_LONG).show();
         }
-        submit();
         btnStartTracking.setVisibility(View.VISIBLE);
         btnStopTracking.setVisibility(View.GONE);
 
@@ -331,6 +345,8 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
                 aux.setCoordinates(coordenadas);
                 aux.setDistance(distance);
                 aux.setTime(count);
+                aux.setPoints(count/10);
+                aux.setDate(time);
                 db.collection("users").document(user.getEmail()).collection("activities").document(Integer.toString(user2.getnActivities() + 1)).set(aux);
                 DocumentReference docRef = db.collection("users").document(user.getEmail());
                 docRef

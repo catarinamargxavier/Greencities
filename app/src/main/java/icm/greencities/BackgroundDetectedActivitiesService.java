@@ -91,10 +91,10 @@ public class BackgroundDetectedActivitiesService extends Service {
         task.addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void result) {
-                Toast.makeText(getApplicationContext(),
-                        "Activity finished successfully!",
-                        Toast.LENGTH_SHORT)
-                        .show();
+                //Toast.makeText(getApplicationContext(),
+                //        "Activity finished successfully!",
+                //        Toast.LENGTH_SHORT)
+                //        .show();
             }
         });
 

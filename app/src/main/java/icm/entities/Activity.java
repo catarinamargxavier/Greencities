@@ -10,6 +10,8 @@ public class Activity {
     private double distance;
     private int time;
     private List<GeoPoint> coordinates = new ArrayList<>();
+    private int points;
+    private long date;
 
     public String getActivity() {
         return activity;
@@ -41,5 +43,21 @@ public class Activity {
 
     public void setCoordinates(List<GeoPoint> coordinates) {
         this.coordinates = coordinates;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
     }
 }

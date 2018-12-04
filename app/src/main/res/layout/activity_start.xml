@@ -153,6 +153,7 @@
                 app:srcCompat="@drawable/ic_still" />
 
             <TextView
+                android:id="@+id/count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -162,6 +163,7 @@
                 android:textSize="30dp" />
 
             <TextView
+                android:id="@+id/count2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/countTime"
@@ -183,6 +185,7 @@
                 android:textSize="25dp" />
 
             <TextView
+                android:id="@+id/count3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -193,6 +196,7 @@
                 android:textSize="30dp" />
 
             <TextView
+                android:id="@+id/count4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -203,6 +207,7 @@
                 android:textSize="30dp" />
 
             <TextView
+                android:id="@+id/count5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"

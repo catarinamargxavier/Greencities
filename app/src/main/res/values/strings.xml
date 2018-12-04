@@ -37,7 +37,7 @@
     <string name="title_activity_navigation_drawer">NavigationDrawer</string>
     <string name="activity_unknown">Unknown Activity</string>
     <string name="activity_in_vehicle">Bus</string>
-    <string name="activity_on_bicycle">Bicycle</string>
+    <string name="activity_on_bicycle">Cycling</string>
     <string name="activity_on_foot">Walking</string>
     <string name="activity_running">Running</string>
     <string name="activity_still">Still</string>
