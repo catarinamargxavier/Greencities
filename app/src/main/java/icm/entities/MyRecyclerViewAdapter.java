@@ -11,6 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import icm.greencities.R;
 
 public class MyRecyclerViewAdapter extends RecyclerView
@@ -27,12 +34,14 @@ public class MyRecyclerViewAdapter extends RecyclerView
         TextView description, points;
         ImageView store;
 
+
         public DataObjectHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.textView);
             description = (TextView) itemView.findViewById(R.id.textView2);
             store = (ImageView) itemView.findViewById(R.id.storeLogo);
             points = (TextView) itemView.findViewById(R.id.textPoints);
+
             Log.i(LOG_TAG, "Adding Listener");
             itemView.setOnClickListener(this);
         }
@@ -63,6 +72,7 @@ public class MyRecyclerViewAdapter extends RecyclerView
 
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
+
         holder.title.setText(mDataset.get(position).getTitle());
         holder.description.setText(mDataset.get(position).getDescription());
         holder.points.setText(mDataset.get(position).getValue());

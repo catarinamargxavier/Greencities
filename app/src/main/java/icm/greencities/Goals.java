@@ -9,20 +9,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Array;
-import java.util.AbstractQueue;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,16 +32,26 @@ import icm.entities.Discount;
 import icm.entities.MyCallback;
 import icm.entities.MyRecyclerViewAdapter;
 import icm.entities.Store;
+import icm.entities.User;
 
 public class Goals extends AppCompatActivity {
+
+    private TextView pointsText;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
     private static String LOG_TAG = "CardViewActivity";
+
     private FirebaseFirestore db;
+    private FirebaseAuth auth;
+    private FirebaseUser user;
+    private User userData;
+
     private Map<String, Store> dados = new HashMap<>();
     private List <Discount> aux = new ArrayList<>();
+
     private int count;
     private String id;
 
@@ -50,7 +60,20 @@ public class Goals extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goals);
 
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
+
+        pointsText = (TextView) findViewById(R.id.userPointsAvailable);
+        String email = user.getEmail();
+        DocumentReference docRef = db.collection("users").document(email);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                userData = documentSnapshot.toObject(User.class);
+                pointsText.setText(userData.getPoints() + " points");
+            }
+        });
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -67,6 +90,7 @@ public class Goals extends AppCompatActivity {
         mAdapter = new MyRecyclerViewAdapter(getDataSet());
         // END OF GET DATA
         mRecyclerView.setAdapter(mAdapter);
+
 
 
         // Code to Add an item with default animation
