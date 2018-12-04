@@ -12,7 +12,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,8 +32,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.mindorks.placeholderview.PlaceHolderView;
 
 import java.util.concurrent.TimeUnit;
+
+import icm.entities.DrawerHeader;
+import icm.entities.DrawerMenuItem;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -41,6 +48,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     ProgressDialog PD;
     GoogleMap googleMap;
     Location location;
+    private PlaceHolderView mDrawerView;
+    private DrawerLayout mDrawer;
+    private Toolbar mToolbar;
+    private PlaceHolderView mGalleryView;
 
 
     @Override
@@ -115,6 +126,38 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        mDrawer = (DrawerLayout)findViewById(R.id.drawerLayout);
+        mDrawerView = (PlaceHolderView)findViewById(R.id.drawerView);
+        mToolbar = (Toolbar)findViewById(R.id.toolbar);
+        setupDrawer();
+
+    }
+
+    private void setupDrawer(){
+        mDrawerView
+                .addView(new DrawerHeader())
+                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_PROFILE))
+                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_REQUESTS))
+                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_MESSAGE))
+                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_GROUPS))
+                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_NOTIFICATIONS))
+                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_TERMS))
+                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_SETTINGS))
+                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_LOGOUT));
+
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.open_drawer, R.string.close_drawer){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+        };
+
+        mDrawer.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
     }
 
 
