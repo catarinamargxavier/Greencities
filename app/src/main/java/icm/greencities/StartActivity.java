@@ -43,7 +43,6 @@ import icm.entities.User;
 
 public class StartActivity extends AppCompatActivity implements SensorEventListener, StepListener {
 
-    // GPSTracker class
     GPSTracker gps;
 
     public static final String BROADCAST_DETECTED_ACTIVITY = "activity_intent";
@@ -63,24 +62,23 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
     private Button btnStartTracking, btnStopTracking;
 
     private double startLat, startLong, lastLat, lastLong;
-
+    private double distance = 0;
+    private List<GeoPoint> coordenadas;
+    private String doing;
+    private int numSteps;
+    private double newDistance;
+    private boolean detected;
+    private boolean started;
 
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseFirestore db;
-
-    private double distance = 0;
-    private List<GeoPoint> coordenadas;
-
-    private String doing;
 
     private TextView TvSteps;
     private StepDetector simpleStepDetector;
     private SensorManager sensorManager;
     private Sensor accel;
 
-    private int numSteps;
-    double newDistance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +115,20 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
 
             }
         });
+
         gps = new GPSTracker(StartActivity.this);
+
+        btnStopTracking.setVisibility(View.GONE);
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        simpleStepDetector = new StepDetector();
+        simpleStepDetector.registerListener(this);
+
+        TvSteps = (TextView) findViewById(R.id.tv_steps);
+        doing = "NotDetected";
+        detected = false;
+        started = false;
 
         broadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -129,45 +140,32 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
                 }
             }
         };
-        btnStopTracking.setVisibility(View.GONE);
-
-        // Get an instance of the SensorManager
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        simpleStepDetector = new StepDetector();
-        simpleStepDetector.registerListener(this);
-
-        TvSteps = (TextView) findViewById(R.id.tv_steps);
-
-
-
     }
 
+
     private void handleUserActivity(int type, int confidence) {
-        String label = getString(R.string.activity_still);
+        String label = "Detecting activity...";
         int icon = R.drawable.ic_still;
         switch (type) {
-            case DetectedActivity.IN_VEHICLE: {
-                label = getString(R.string.activity_in_vehicle);
-                icon = R.drawable.ic_bus;
-                break;
-            }
             case DetectedActivity.ON_BICYCLE: {
                 label = getString(R.string.activity_on_bicycle);
                 icon = R.drawable.ic_on_bicycle;
                 doing = "Bicycling";
+                detected = true;
                 break;
             }
             case DetectedActivity.RUNNING: {
                 label = getString(R.string.activity_running);
                 icon = R.drawable.ic_running;
                 doing = "Running";
+                detected = true;
                 break;
             }
             case DetectedActivity.STILL: {
-                label = getString(R.string.activity_still);
+                label = "Detecting activity...";
                 icon = R.drawable.ic_still;
                 doing = "Nothing";
+                detected = true;
                 break;
             }
             case DetectedActivity.WALKING: {
@@ -178,29 +176,37 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
             }
         }
 
-
-
         if (confidence > CONFIDENCE) {
             txtActivity.setText(label);
             imgActivity.setImageResource(icon);
             imgKm.setImageResource(icon);
+
+            if (label.equals("Detecting activity...") && started) {
+                if (detected && count>0) {
+                    T.cancel();
+                }
+            } else if (started && count == 0) {
+                countTime();
+            }
+
         }
     }
 
+
     private double[] getLocation() {
-        // Check if GPS enabled
         double latitude = 0;
         double longitude = 0;
+
         if(gps.canGetLocation()) {
             latitude = gps.getLatitude();
             longitude = gps.getLongitude();
-
         } else {
-            // Show Settings when GPS or network is not enable
             gps.showSettingsAlert();
         }
+
         return new double[]{latitude, longitude};
     }
+
 
     @Override
     protected void onResume() {
@@ -209,15 +215,19 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
                 new IntentFilter(BROADCAST_DETECTED_ACTIVITY));
     }
 
+
     @Override
     protected void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
     }
 
+
     private void startTracking() {
+        started = true;
         btnStopTracking.setVisibility(View.VISIBLE);
         btnStartTracking.setVisibility(View.GONE);
+        txtActivity.setText("Detecting activity...");
 
         Intent intent = new Intent(StartActivity.this, BackgroundDetectedActivitiesService.class);
         startService(intent);
@@ -234,62 +244,67 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
         lastLat = startLat;
         lastLong = startLong;
 
+
+
+    }
+
+
+    private void countTime() {
         T=new Timer();
         T.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                runOnUiThread(new Runnable()
+            runOnUiThread(new Runnable()
+            {
+                @Override
+                public void run()
                 {
-                    @Override
-                    public void run()
-                    {
-                        count++;
-                        int min = count/60;
-                        int seg = 0;
-                        if (count%60 != 0) {
-                            seg = count - (60 * min);
-                        }
-                        //myTextView.setText(Integer.toString(seg));
+                count++;
+                int min = count/60;
+                int seg = 0;
+                if (count%60 != 0) {
+                    seg = count - (60 * min);
+                }
+                //myTextView.setText(Integer.toString(seg));
 
-                        String minutos = Integer.toString(min);
-                        if (minutos.length() == 1) {
-                            myTextView.setText("0");
-                            myTextView2.setText(minutos);
-                        } else {
-                            myTextView.setText(String.valueOf(minutos.charAt(0)));
-                            myTextView2.setText(String.valueOf(minutos.charAt(1)));
-                        }
-                        String segundos = Integer.toString(seg);
-                        if (segundos.length() == 1) {
-                            myTextView3.setText("0");
-                            myTextView4.setText(segundos);
-                        } else {
-                            myTextView3.setText(String.valueOf(segundos.charAt(0)));
-                            myTextView4.setText(String.valueOf(segundos.charAt(1)));
-                        }
-                        Location newLocation = gps.getLocation();
-                        double newLat = newLocation.getLatitude();
-                        double newLong = newLocation.getLongitude();
-                        if (newLat != lastLat || newLong != lastLong) {
-                            //txtLocation.setText("Lat:" + newLat + "\nLong: " + newLong);
-                            //distance += Math.sqrt((newLong - lastLong) * (newLong - lastLong) + (newLat - lastLat) * (newLat - lastLat));
-                            GeoPoint ponto = new GeoPoint(newLat, newLong);
-                            coordenadas.add(ponto);
-                            lastLat = newLat;
-                            lastLong = newLong;
-                        };
-                        //txtLocation.setText("Lat:" + newLocation.getLatitude() +  "\nLong: " + newLocation.getLongitude());
-                        //Log.d("Tag8", "-> " + distance + "m");
-                        newDistance = 0.76*numSteps;
-                        txtDistance.setText(String.format("%.2f m",newDistance));
-
-
-                    }
-                });
+                String minutos = Integer.toString(min);
+                if (minutos.length() == 1) {
+                    myTextView.setText("0");
+                    myTextView2.setText(minutos);
+                } else {
+                    myTextView.setText(String.valueOf(minutos.charAt(0)));
+                    myTextView2.setText(String.valueOf(minutos.charAt(1)));
+                }
+                String segundos = Integer.toString(seg);
+                if (segundos.length() == 1) {
+                    myTextView3.setText("0");
+                    myTextView4.setText(segundos);
+                } else {
+                    myTextView3.setText(String.valueOf(segundos.charAt(0)));
+                    myTextView4.setText(String.valueOf(segundos.charAt(1)));
+                }
+                Location newLocation = gps.getLocation();
+                double newLat = newLocation.getLatitude();
+                double newLong = newLocation.getLongitude();
+                if (newLat != lastLat || newLong != lastLong) {
+                    //txtLocation.setText("Lat:" + newLat + "\nLong: " + newLong);
+                    //distance += Math.sqrt((newLong - lastLong) * (newLong - lastLong) + (newLat - lastLat) * (newLat - lastLat));
+                    GeoPoint ponto = new GeoPoint(newLat, newLong);
+                    coordenadas.add(ponto);
+                    lastLat = newLat;
+                    lastLong = newLong;
+                };
+                //txtLocation.setText("Lat:" + newLocation.getLatitude() +  "\nLong: " + newLocation.getLongitude());
+                //Log.d("Tag8", "-> " + distance + "m");
+                newDistance = 0.76*numSteps;
+                txtDistance.setText(String.format("%.2f m",newDistance));
+                }
+            });
             }
         }, 1000, 1000);
-
     }
+
+
     private void stopTracking() {
         Intent intent = new Intent(StartActivity.this, BackgroundDetectedActivitiesService.class);
         stopService(intent);
