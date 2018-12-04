@@ -18,6 +18,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -95,11 +98,21 @@ public class RegisterActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (!task.isSuccessful()) {
-                                            Toast.makeText(
-                                                    RegisterActivity.this,
-                                                    "Authentication Failed",
-                                                    Toast.LENGTH_LONG).show();
-                                            Log.v("error", task.getResult().toString());
+                                            try {
+                                                throw task.getException();
+                                            } catch(FirebaseAuthUserCollisionException e) {
+                                                Toast.makeText(
+                                                        RegisterActivity.this,
+                                                        "Email already in use",
+                                                        Toast.LENGTH_LONG).show();
+                                            } catch (FirebaseAuthWeakPasswordException e) {
+                                                Toast.makeText(
+                                                        RegisterActivity.this,
+                                                        "Invalid length (< 6) or invalid characters",
+                                                        Toast.LENGTH_LONG).show();
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
                                         } else {
                                             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                                             startActivity(intent);

@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthEmailException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class ForgetPassword extends AppCompatActivity {
@@ -85,6 +87,13 @@ public class ForgetPassword extends AppCompatActivity {
                             Toast.makeText(ForgetPassword.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(ForgetPassword.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                            try {
+                                throw task.getException();
+                            } catch(FirebaseAuthEmailException e) {
+                                //
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                         PD.dismiss();
 

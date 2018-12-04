@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
@@ -45,23 +46,28 @@ public class LoginActivity extends AppCompatActivity {
                 final String password = inputPassword.getText().toString();
 
                 try {
-
                     if (password.length() > 0 && email.length() > 0) {
                         PD.show();
                         auth.signInWithEmailAndPassword(email, password)
                                 .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (!task.isSuccessful()) {
-                                            Toast.makeText(
-                                                    LoginActivity.this,
-                                                    "Authentication Failed",
-                                                    Toast.LENGTH_LONG).show();
-                                            Log.v("error", task.getResult().toString());
-                                        } else {
+                                        if (task.isSuccessful()) {
                                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                             startActivity(intent);
                                             finish();
+                                        } else {
+                                            Toast.makeText(
+                                                    LoginActivity.this,
+                                                    "Authentication Failed - Wrong Email or Password",
+                                                    Toast.LENGTH_LONG).show();
+                                            try {
+                                                throw task.getException();
+                                            } catch(FirebaseAuthInvalidCredentialsException e) {
+                                                //
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
                                         }
                                         PD.dismiss();
                                     }
