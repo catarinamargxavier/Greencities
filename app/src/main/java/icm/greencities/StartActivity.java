@@ -181,14 +181,9 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
             imgActivity.setImageResource(icon);
             imgKm.setImageResource(icon);
 
-            if (label.equals("Detecting activity...") && started) {
-                if (detected && count>0) {
-                    T.cancel();
-                }
-            } else if (started && count == 0) {
+            if (!label.equals("Detecting activity...") && started && count == 0) {
                 countTime();
             }
-
         }
     }
 
