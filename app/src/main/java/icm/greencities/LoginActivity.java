@@ -2,7 +2,10 @@ package icm.greencities;
 
 import android.app.ActionBar;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         PD = new ProgressDialog(this);
         PD.setMessage("Loading...");
         PD.setCancelable(true);
@@ -42,44 +46,51 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override            public void onClick(View view) {
-                final String email = inputEmail.getText().toString();
-                final String password = inputPassword.getText().toString();
+                if (checkConnection()) {
+                    final String email = inputEmail.getText().toString();
+                    final String password = inputPassword.getText().toString();
 
-                try {
-                    if (password.length() > 0 && email.length() > 0) {
-                        PD.show();
-                        auth.signInWithEmailAndPassword(email, password)
-                                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
-                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        } else {
-                                            Toast.makeText(
-                                                    LoginActivity.this,
-                                                    "Authentication Failed - Wrong Email or Password",
-                                                    Toast.LENGTH_LONG).show();
-                                            try {
-                                                throw task.getException();
-                                            } catch(FirebaseAuthInvalidCredentialsException e) {
-                                                //
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
+                    try {
+                        if (password.length() > 0 && email.length() > 0) {
+                            PD.show();
+                            auth.signInWithEmailAndPassword(email, password)
+                                    .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (task.isSuccessful()) {
+                                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
+                                                Toast.makeText(
+                                                        LoginActivity.this,
+                                                        "Authentication Failed - Wrong Email or Password",
+                                                        Toast.LENGTH_LONG).show();
+                                                try {
+                                                    throw task.getException();
+                                                } catch(FirebaseAuthInvalidCredentialsException e) {
+                                                    //
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
                                             }
+                                            PD.dismiss();
                                         }
-                                        PD.dismiss();
-                                    }
-                                });
-                    } else {
-                        Toast.makeText(
-                                LoginActivity.this,
-                                "Fill All Fields",
-                                Toast.LENGTH_LONG).show();
+                                    });
+                        } else {
+                            Toast.makeText(
+                                    LoginActivity.this,
+                                    "Fill All Fields",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } else {
+                    Toast.makeText(
+                            LoginActivity.this,
+                            "This app requires an active internet connection!",
+                            Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -99,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+
     @Override    protected void onResume() {
         if (auth.getCurrentUser() != null) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -106,4 +118,13 @@ public class LoginActivity extends AppCompatActivity {
         }
         super.onResume();
     }
+
+
+    private boolean checkConnection() {
+        ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return isConnected;
+    }
+
 }
