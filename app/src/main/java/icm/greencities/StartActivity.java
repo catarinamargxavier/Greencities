@@ -33,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -59,9 +60,15 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
     TextView myTextView2;
     TextView myTextView3;
     TextView myTextView4;
+    TextView myDistanceView;
+    TextView myDistanceView2;
+    TextView myDistanceView3;
+    TextView myDistanceView4;
+    TextView myDistanceView5;
     int count = 0;
+    int countAux = 0;
 
-    private TextView txtActivity, txtDistance;
+    private TextView txtActivity;
     private ImageView imgActivity, imgKm;
     private Button btnStartTracking, btnStopTracking;
 
@@ -92,7 +99,6 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
 
         txtActivity = findViewById(R.id.txt_activity);
         imgActivity = findViewById(R.id.img_activity);
-        txtDistance = findViewById(R.id.txt_distance);
         imgKm = findViewById(R.id.imageKM);
         btnStartTracking = findViewById(R.id.btn_start_tracking);
         btnStopTracking = findViewById(R.id.btn_stop_tracking);
@@ -233,6 +239,11 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
         myTextView2 = findViewById(R.id.countTime2);
         myTextView3 = findViewById(R.id.countTime3);
         myTextView4 = findViewById(R.id.countTime4);
+        myDistanceView = findViewById(R.id.count);
+        myDistanceView2 = findViewById(R.id.count2);
+        myDistanceView3 = findViewById(R.id.count3);
+        myDistanceView4 = findViewById(R.id.count4);
+        myDistanceView5 = findViewById(R.id.count5);
 
         Location location = gps.getLocation();
         startLat = location.getLatitude();
@@ -257,45 +268,77 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
                 @Override
                 public void run()
                 {
-                count++;
-                int min = count/60;
-                int seg = 0;
-                if (count%60 != 0) {
-                    seg = count - (60 * min);
-                }
-                //myTextView.setText(Integer.toString(seg));
+                    if (countAux < 3) {
+                        countAux++;
+                    }
+                    count++;
+                    int min = count/60;
+                    int seg = 0;
+                    if (count%60 != 0) {
+                        seg = count - (60 * min);
+                    }
+                    //myTextView.setText(Integer.toString(seg));
 
-                String minutos = Integer.toString(min);
-                if (minutos.length() == 1) {
-                    myTextView.setText("0");
-                    myTextView2.setText(minutos);
-                } else {
-                    myTextView.setText(String.valueOf(minutos.charAt(0)));
-                    myTextView2.setText(String.valueOf(minutos.charAt(1)));
-                }
-                String segundos = Integer.toString(seg);
-                if (segundos.length() == 1) {
-                    myTextView3.setText("0");
-                    myTextView4.setText(segundos);
-                } else {
-                    myTextView3.setText(String.valueOf(segundos.charAt(0)));
-                    myTextView4.setText(String.valueOf(segundos.charAt(1)));
-                }
-                Location newLocation = gps.getLocation();
-                double newLat = newLocation.getLatitude();
-                double newLong = newLocation.getLongitude();
-                if (newLat != lastLat || newLong != lastLong) {
-                    //txtLocation.setText("Lat:" + newLat + "\nLong: " + newLong);
-                    //distance += Math.sqrt((newLong - lastLong) * (newLong - lastLong) + (newLat - lastLat) * (newLat - lastLat));
-                    GeoPoint ponto = new GeoPoint(newLat, newLong);
-                    coordenadas.add(ponto);
-                    lastLat = newLat;
-                    lastLong = newLong;
-                };
-                //txtLocation.setText("Lat:" + newLocation.getLatitude() +  "\nLong: " + newLocation.getLongitude());
-                //Log.d("Tag8", "-> " + distance + "m");
-                newDistance = 0.76*numSteps;
-                txtDistance.setText(String.format("%.2f m",newDistance));
+                    String minutos = Integer.toString(min);
+                    if (minutos.length() == 1) {
+                        myTextView.setText("0");
+                        myTextView2.setText(minutos);
+                    } else {
+                        myTextView.setText(String.valueOf(minutos.charAt(0)));
+                        myTextView2.setText(String.valueOf(minutos.charAt(1)));
+                    }
+                    String segundos = Integer.toString(seg);
+                    if (segundos.length() == 1) {
+                        myTextView3.setText("0");
+                        myTextView4.setText(segundos);
+                    } else {
+                        myTextView3.setText(String.valueOf(segundos.charAt(0)));
+                        myTextView4.setText(String.valueOf(segundos.charAt(1)));
+                    }
+                    if (countAux == 3) {
+                        countAux = 0;
+                        Location newLocation = gps.getLocation();
+                        double newLat = newLocation.getLatitude();
+                        double newLong = newLocation.getLongitude();
+                        if (newLat != lastLat || newLong != lastLong) {
+                            //txtLocation.setText("Lat:" + newLat + "\nLong: " + newLong);
+                            //distance += Math.sqrt((newLong - lastLong) * (newLong - lastLong) + (newLat - lastLat) * (newLat - lastLat));
+                            GeoPoint ponto = new GeoPoint(newLat, newLong);
+                            coordenadas.add(ponto);
+                            lastLat = newLat;
+                            lastLong = newLong;
+                        }
+                        ;
+                        //txtLocation.setText("Lat:" + newLocation.getLatitude() +  "\nLong: " + newLocation.getLongitude());
+                        //Log.d("Tag8", "-> " + distance + "m");
+                    }
+                    newDistance = 0.76 * numSteps;
+                    String aux = Double.toString(newDistance);
+                    if (aux.length() > 0 && aux.contains(".")) {
+                        //Log.d("Tag10", Arrays.toString(aux.split("\\.")));
+                        aux = (aux.split("\\."))[0];
+                    }
+                    if (aux.length() == 1) {
+                        myDistanceView5.setText(String.valueOf(aux.charAt(0)));
+                    } else if (aux.length() == 2) {
+                        myDistanceView5.setText(String.valueOf(aux.charAt(1)));
+                        myDistanceView4.setText(String.valueOf(aux.charAt(0)));
+                    } else if (aux.length() == 3) {
+                        myDistanceView5.setText(String.valueOf(aux.charAt(2)));
+                        myDistanceView4.setText(String.valueOf(aux.charAt(1)));
+                        myDistanceView3.setText(String.valueOf(aux.charAt(0)));
+                    } else if (aux.length() == 4) {
+                        myDistanceView5.setText(String.valueOf(aux.charAt(3)));
+                        myDistanceView4.setText(String.valueOf(aux.charAt(2)));
+                        myDistanceView3.setText(String.valueOf(aux.charAt(1)));
+                        myDistanceView2.setText(String.valueOf(aux.charAt(0)));
+                    } else if (aux.length() == 5) {
+                        myDistanceView5.setText(String.valueOf(aux.charAt(4)));
+                        myDistanceView4.setText(String.valueOf(aux.charAt(3)));
+                        myDistanceView3.setText(String.valueOf(aux.charAt(2)));
+                        myDistanceView2.setText(String.valueOf(aux.charAt(1)));
+                        myDistanceView.setText(String.valueOf(aux.charAt(0)));
+                    }
                 }
             });
             }
