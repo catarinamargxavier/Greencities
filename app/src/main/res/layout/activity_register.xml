@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/girlbike"
-    android:gravity="center"
+    android:layout_centerHorizontal="true"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="8dp">
 
+    <LinearLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="8dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -17,6 +24,8 @@
         android:text="@string/register"
         android:textAllCaps="true"
         android:textSize="16sp" />
+    </LinearLayout>
+
 
 
     <!-- Login progress -->
@@ -32,19 +41,23 @@
         android:id="@+id/signup_form"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="92dp">
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleLayout"
+        tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout
             android:id="@+id/email_signup_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/common_google_signin_btn_text_dark_disabled"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/white">
 
                 <AutoCompleteTextView
                     android:id="@+id/name"
@@ -54,7 +67,7 @@
                     android:inputType="textPersonName"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/white" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -159,9 +172,8 @@
                 android:background="@color/colorPrimary"
                 android:text="@string/login"
                 android:textColor="@color/white" />
-
-
+            
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
