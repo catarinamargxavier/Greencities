@@ -5,52 +5,33 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.GeoPoint;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.mindorks.placeholderview.PlaceHolderView;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import icm.entities.Activity;
-import icm.entities.DrawerHeader;
-import icm.entities.DrawerMenuItem;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -61,10 +42,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     ProgressDialog PD;
     GoogleMap googleMap;
     Location location;
-    private PlaceHolderView mDrawerView;
+
+
     private DrawerLayout mDrawer;
-    private Toolbar mToolbar;
-    private PlaceHolderView mGalleryView;
+    private Toolbar toolbar;
+    private NavigationView nvDrawer;
+
+    private ActionBarDrawerToggle drawerToggle;
 
 
     @Override
@@ -89,7 +73,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         btnSignOut = (Button) findViewById(R.id.sign_out_button);
 
         btnSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override            public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
                 auth.signOut();
                 FirebaseAuth.AuthStateListener authListener = new FirebaseAuth.AuthStateListener() {
                     @Override
@@ -123,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-        LinearLayout menu_Goals = (LinearLayout)findViewById(R.id.buttonGoals);
+        LinearLayout menu_Goals = (LinearLayout) findViewById(R.id.buttonGoals);
         menu_Goals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-        LinearLayout menu_startActivity = (LinearLayout)findViewById(R.id.buttonStart);
+        LinearLayout menu_startActivity = (LinearLayout) findViewById(R.id.buttonStart);
         menu_startActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,37 +124,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-        mDrawer = (DrawerLayout)findViewById(R.id.drawerLayout);
-        mDrawerView = (PlaceHolderView)findViewById(R.id.drawerView);
-        mToolbar = (Toolbar)findViewById(R.id.toolbar);
-        setupDrawer();
-
     }
 
-    private void setupDrawer(){
-        mDrawerView
-                .addView(new DrawerHeader())
-                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_PROFILE))
-                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_GOALS))
-                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_RESULTS))
-                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_STARTACTIVITY))
-                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_NOTIFICATIONS))
-                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_LOGOUT));
-
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.open_drawer, R.string.close_drawer){
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-            }
-        };
-
-        mDrawer.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();
-    }
 
 
     @Override

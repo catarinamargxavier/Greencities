@@ -46,10 +46,6 @@
             android:name=".ProfileAtivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".NavigationDrawer"
-            android:label="@string/title_activity_navigation_drawer"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".StartActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -77,6 +73,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
 
     </application>
 
