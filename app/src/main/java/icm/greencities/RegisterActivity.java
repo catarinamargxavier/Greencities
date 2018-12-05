@@ -130,6 +130,8 @@ public class RegisterActivity extends AppCompatActivity {
                             user.put("name", name);
                             user.put("country", country);
                             user.put("city", city);
+                            user.put("points", 0);
+                            user.put("nActivities", 0);
                             db.collection("users").document(email)
                                     .set(user)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
