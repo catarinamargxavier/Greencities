@@ -363,7 +363,7 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
                     StartActivity.this,
                     "Activity finished successfully! ",
                     Toast.LENGTH_LONG).show();
-        } else if ( doing == null || doing.equals("nothing") ) {
+        } else if ( doing == null || doing.equals("nothing") || doing.equals("") ) {
             if (count != 0) {
                 T.cancel();
             }
