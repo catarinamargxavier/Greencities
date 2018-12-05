@@ -21,8 +21,6 @@ import icm.greencities.R;
 import icm.greencities.ResultsMain;
 import icm.greencities.StartActivity;
 
-import static android.app.PendingIntent.getActivity;
-import static android.support.v4.content.ContextCompat.startActivity;
 
 @Layout(R.layout.drawer_item)
 public class DrawerMenuItem {
@@ -85,6 +83,7 @@ public class DrawerMenuItem {
         switch (mMenuPosition){
             case DRAWER_MENU_ITEM_PROFILE:
                 mContext.startActivity(new Intent(mContext.getApplicationContext(), ProfileAtivity.class));
+                if(mCallBack != null)mCallBack.onProfileMenuSelected();
                 break;
             case DRAWER_MENU_ITEM_STARTACTIVITY:
                 mContext.startActivity(new Intent(mContext.getApplicationContext(), StartActivity.class));
