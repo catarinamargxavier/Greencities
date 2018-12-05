@@ -1,28 +1,38 @@
 package icm.entities;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
 
+import icm.greencities.Goals;
+import icm.greencities.LoginActivity;
+import icm.greencities.ProfileAtivity;
 import icm.greencities.R;
+import icm.greencities.ResultsMain;
+import icm.greencities.StartActivity;
+
+import static android.app.PendingIntent.getActivity;
+import static android.support.v4.content.ContextCompat.startActivity;
 
 @Layout(R.layout.drawer_item)
 public class DrawerMenuItem {
 
-    public static final int DRAWER_MENU_ITEM_PROFILE = 1;
-    public static final int DRAWER_MENU_ITEM_REQUESTS = 2;
-    public static final int DRAWER_MENU_ITEM_GROUPS = 3;
-    public static final int DRAWER_MENU_ITEM_MESSAGE = 4;
+    public static final int DRAWER_MENU_ITEM_STARTACTIVITY= 1;
+    public static final int DRAWER_MENU_ITEM_GOALS = 2;
+    public static final int DRAWER_MENU_ITEM_RESULTS = 3;
+    public static final int DRAWER_MENU_ITEM_PROFILE = 4;
     public static final int DRAWER_MENU_ITEM_NOTIFICATIONS = 5;
-    public static final int DRAWER_MENU_ITEM_SETTINGS = 6;
-    public static final int DRAWER_MENU_ITEM_TERMS = 7;
-    public static final int DRAWER_MENU_ITEM_LOGOUT = 8;
+    public static final int DRAWER_MENU_ITEM_LOGOUT = 6;
 
     private int mMenuPosition;
     private Context mContext;
@@ -44,34 +54,26 @@ public class DrawerMenuItem {
         switch (mMenuPosition){
             case DRAWER_MENU_ITEM_PROFILE:
                 itemNameTxt.setText("Profile");
-                itemIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_person_black));
+                itemIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_person_grey_24dp));
                 break;
-            case DRAWER_MENU_ITEM_REQUESTS:
-                itemNameTxt.setText("Requests");
-                itemIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_alarm_black_24dp));
+            case DRAWER_MENU_ITEM_STARTACTIVITY:
+                itemNameTxt.setText("Start Activity");
+                itemIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_play_circle_filled_grey_24dp));
                 break;
-            case DRAWER_MENU_ITEM_GROUPS:
-                itemNameTxt.setText("Groups");
-                itemIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_bus));
+            case DRAWER_MENU_ITEM_GOALS:
+                itemNameTxt.setText("Goals");
+                itemIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_stars_grey_24dp));
                 break;
-            case DRAWER_MENU_ITEM_MESSAGE:
-                itemNameTxt.setText("Messages");
-                itemIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_menu_gallery));
+            case DRAWER_MENU_ITEM_RESULTS:
+                itemNameTxt.setText("Results");
+                itemIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_insert_chart_grey_24dp));
                 break;
             case DRAWER_MENU_ITEM_NOTIFICATIONS:
                 itemNameTxt.setText("Notifications");
-                itemIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_still));
-                break;
-            case DRAWER_MENU_ITEM_SETTINGS:
-                itemNameTxt.setText("Settings");
-                itemIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_menu_manage));
-                break;
-            case DRAWER_MENU_ITEM_TERMS:
-                itemIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_on_bicycle));
-                itemNameTxt.setText("Terms");
+                itemIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_notifications_grey_24dp));
                 break;
             case DRAWER_MENU_ITEM_LOGOUT:
-                itemIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_play_circle_filled_black));
+                itemIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_exit_to_app_grey_24dp));
                 itemNameTxt.setText("Logout");
                 break;
         }
@@ -79,38 +81,36 @@ public class DrawerMenuItem {
 
     @Click(R.id.mainView)
     private void onMenuItemClick(){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
         switch (mMenuPosition){
             case DRAWER_MENU_ITEM_PROFILE:
-                Toast.makeText(mContext, "Profile", Toast.LENGTH_SHORT).show();
-                if(mCallBack != null)mCallBack.onProfileMenuSelected();
+                mContext.startActivity(new Intent(mContext.getApplicationContext(), ProfileAtivity.class));
                 break;
-            case DRAWER_MENU_ITEM_REQUESTS:
-                Toast.makeText(mContext, "Requests", Toast.LENGTH_SHORT).show();
-                if(mCallBack != null)mCallBack.onRequestMenuSelected();
+            case DRAWER_MENU_ITEM_STARTACTIVITY:
+                mContext.startActivity(new Intent(mContext.getApplicationContext(), StartActivity.class));
                 break;
-            case DRAWER_MENU_ITEM_GROUPS:
-                Toast.makeText(mContext, "Groups", Toast.LENGTH_SHORT).show();
-                if(mCallBack != null)mCallBack.onGroupsMenuSelected();
-                break;
-            case DRAWER_MENU_ITEM_MESSAGE:
-                Toast.makeText(mContext, "Messages", Toast.LENGTH_SHORT).show();
-                if(mCallBack != null)mCallBack.onMessagesMenuSelected();
+            case DRAWER_MENU_ITEM_GOALS:
+                mContext.startActivity(new Intent(mContext.getApplicationContext(), Goals.class));
                 break;
             case DRAWER_MENU_ITEM_NOTIFICATIONS:
                 Toast.makeText(mContext, "Notifications", Toast.LENGTH_SHORT).show();
                 if(mCallBack != null)mCallBack.onNotificationsMenuSelected();
                 break;
-            case DRAWER_MENU_ITEM_SETTINGS:
-                Toast.makeText(mContext, "Settings", Toast.LENGTH_SHORT).show();
-                if(mCallBack != null)mCallBack.onSettingsMenuSelected();
-                break;
-            case DRAWER_MENU_ITEM_TERMS:
-                Toast.makeText(mContext, "Terms", Toast.LENGTH_SHORT).show();
-                if(mCallBack != null)mCallBack.onTermsMenuSelected();
+            case DRAWER_MENU_ITEM_RESULTS:
+                mContext.startActivity(new Intent(mContext.getApplicationContext(), ResultsMain.class));
                 break;
             case DRAWER_MENU_ITEM_LOGOUT:
-                Toast.makeText(mContext, "Logout", Toast.LENGTH_SHORT).show();
-                if(mCallBack != null)mCallBack.onLogoutMenuSelected();
+                auth.signOut();
+                FirebaseAuth.AuthStateListener authListener = new FirebaseAuth.AuthStateListener() {
+                    @Override
+                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                        if (user == null) {
+                            mContext.startActivity(new Intent(mContext.getApplicationContext(), LoginActivity.class));
+                            //finish()
+                        }
+                    }
+                };
                 break;
         }
     }
