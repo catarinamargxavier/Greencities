@@ -1,6 +1,9 @@
 package icm.greencities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -74,84 +77,103 @@ public class ForgetPassword extends AppCompatActivity {
 
     private void callFunction(int mode) {
 
-        FirebaseUser user = auth.getCurrentUser();
-        final String modeStr = edtMode.getText().toString();
-        if (mode == 0) {
-            if (TextUtils.isEmpty(modeStr)) {
-                edtMode.setError("Value Required");
-            } else {
-                PD.show();
-                auth.sendPasswordResetEmail(modeStr).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(ForgetPassword.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(ForgetPassword.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
-                            try {
-                                throw task.getException();
-                            } catch(FirebaseAuthEmailException e) {
-                                //
-                            } catch (Exception e) {
-                                e.printStackTrace();
+        if (checkConnection()) {
+
+            FirebaseUser user = auth.getCurrentUser();
+            final String modeStr = edtMode.getText().toString();
+            if (mode == 0) {
+                if (TextUtils.isEmpty(modeStr)) {
+                    edtMode.setError("Value Required");
+                } else {
+                    PD.show();
+                    auth.sendPasswordResetEmail(modeStr).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(ForgetPassword.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(ForgetPassword.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                                try {
+                                    throw task.getException();
+                                } catch (FirebaseAuthEmailException e) {
+                                    //
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
+                            PD.dismiss();
+
                         }
-                        PD.dismiss();
-
-                    }
-                });
-            }
-        } else if (mode == 1) {
-            if (TextUtils.isEmpty(modeStr)) {
-                edtMode.setError("Value Required");
-            } else {
-                PD.show();
-                user.updatePassword(modeStr)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(ForgetPassword.this, "Password is updated!", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(ForgetPassword.this, "Failed to update password!", Toast.LENGTH_SHORT).show();
+                    });
+                }
+            } else if (mode == 1) {
+                if (TextUtils.isEmpty(modeStr)) {
+                    edtMode.setError("Value Required");
+                } else {
+                    PD.show();
+                    user.updatePassword(modeStr)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(ForgetPassword.this, "Password is updated!", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(ForgetPassword.this, "Failed to update password!", Toast.LENGTH_SHORT).show();
+                                    }
+                                    PD.dismiss();
                                 }
-                                PD.dismiss();
-                            }
 
-                        });
-            }
-        } else if (mode == 2) {
-            if (TextUtils.isEmpty(modeStr)) {
-                edtMode.setError("Value Required");
-            } else {
-                PD.show();
-                user.updateEmail(modeStr)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(ForgetPassword.this, "Email address is updated.", Toast.LENGTH_LONG).show();
-                                } else {
-                                    Toast.makeText(ForgetPassword.this, "Failed to update email!", Toast.LENGTH_LONG).show();
+                            });
+                }
+            } else if (mode == 2) {
+                if (TextUtils.isEmpty(modeStr)) {
+                    edtMode.setError("Value Required");
+                } else {
+                    PD.show();
+                    user.updateEmail(modeStr)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(ForgetPassword.this, "Email address is updated.", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        Toast.makeText(ForgetPassword.this, "Failed to update email!", Toast.LENGTH_LONG).show();
+                                    }
+                                    PD.dismiss();
                                 }
-                                PD.dismiss();
-                            }
-                        });
+                            });
+                }
+            } else {
+                if (user != null) {
+                    PD.show();
+                    user.delete()
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(ForgetPassword.this, "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(ForgetPassword.this, "Failed to delete your account!", Toast.LENGTH_SHORT).show();
+                                    }
+                                    PD.dismiss();
+                                }
+                            });
+                }
             }
         } else {
-            if (user != null) {
-                PD.show();
-                user.delete()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(ForgetPassword.this, "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(ForgetPassword.this, "Failed to delete your account!", Toast.LENGTH_SHORT).show();
-                                }
-                                PD.dismiss();
-                            }
-                        });
-            }
+            Toast.makeText(
+                    ForgetPassword.this,
+                    "This app requires an active internet connection!",
+                    Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    private boolean checkConnection() {
+        ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return isConnected;
     }
 
 }

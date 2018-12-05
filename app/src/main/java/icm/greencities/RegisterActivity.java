@@ -2,7 +2,10 @@ package icm.greencities;
 
 import android.app.ActionBar;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -84,69 +87,77 @@ public class RegisterActivity extends AppCompatActivity {
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override            public void onClick(View view) {
-                final String email = inputEmail.getText().toString();
-                final String password = inputPassword.getText().toString();
-                final String country = inputCountry.getText().toString();
-                final String city = inputCity.getText().toString();
-                final String name =  inputFullName.getText().toString();
 
-                try {
-                    if (password.length() > 0 && email.length() > 0) {
-                        PD.show();
-                        auth.createUserWithEmailAndPassword(email, password)
-                                .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (!task.isSuccessful()) {
-                                            try {
-                                                throw task.getException();
-                                            } catch(FirebaseAuthUserCollisionException e) {
-                                                Toast.makeText(
-                                                        RegisterActivity.this,
-                                                        "Email already in use",
-                                                        Toast.LENGTH_LONG).show();
-                                            } catch (FirebaseAuthWeakPasswordException e) {
-                                                Toast.makeText(
-                                                        RegisterActivity.this,
-                                                        "Invalid length (< 6) or invalid characters",
-                                                        Toast.LENGTH_LONG).show();
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
+                if (checkConnection()) {
+                    final String email = inputEmail.getText().toString();
+                    final String password = inputPassword.getText().toString();
+                    final String country = inputCountry.getText().toString();
+                    final String city = inputCity.getText().toString();
+                    final String name = inputFullName.getText().toString();
+
+                    try {
+                        if (password.length() > 0 && email.length() > 0) {
+                            PD.show();
+                            auth.createUserWithEmailAndPassword(email, password)
+                                    .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (!task.isSuccessful()) {
+                                                try {
+                                                    throw task.getException();
+                                                } catch (FirebaseAuthUserCollisionException e) {
+                                                    Toast.makeText(
+                                                            RegisterActivity.this,
+                                                            "Email already in use",
+                                                            Toast.LENGTH_LONG).show();
+                                                } catch (FirebaseAuthWeakPasswordException e) {
+                                                    Toast.makeText(
+                                                            RegisterActivity.this,
+                                                            "Invalid length (< 6) or invalid characters",
+                                                            Toast.LENGTH_LONG).show();
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
+                                            } else {
+                                                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                                startActivity(intent);
+                                                finish();
                                             }
-                                        } else {
-                                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                                            startActivity(intent);
-                                            finish();
+                                            PD.dismiss();
                                         }
-                                        PD.dismiss();
-                                    }
-                                });
-                        Map<String, Object> user = new HashMap<>();
-                        user.put("name", name);
-                        user.put("country", country);
-                        user.put("city", city);
-                        db.collection("users").document(email)
-                                .set(user)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d("sucess", "DocumentSnapshot successfully written!");
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w("error", "Error writing document", e);
-                                    }
-                                });
-                    } else {
-                        Toast.makeText(
-                                RegisterActivity.this,
-                                "Fill All Fields",
-                                Toast.LENGTH_LONG).show();
+                                    });
+                            Map<String, Object> user = new HashMap<>();
+                            user.put("name", name);
+                            user.put("country", country);
+                            user.put("city", city);
+                            db.collection("users").document(email)
+                                    .set(user)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("sucess", "DocumentSnapshot successfully written!");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w("error", "Error writing document", e);
+                                        }
+                                    });
+                        } else {
+                            Toast.makeText(
+                                    RegisterActivity.this,
+                                    "Fill All Fields",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } else {
+                    Toast.makeText(
+                            RegisterActivity.this,
+                            "This app requires an active internet connection!",
+                            Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -156,6 +167,13 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private boolean checkConnection() {
+        ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return isConnected;
     }
 
 }
