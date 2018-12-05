@@ -5,9 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -28,14 +31,24 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.mindorks.placeholderview.PlaceHolderView;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import icm.entities.Activity;
 import icm.entities.DrawerHeader;
 import icm.entities.DrawerMenuItem;
 
@@ -225,6 +238,89 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .title("Marker"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
+
+        /*
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("users").document("caroliinaalbuquerque29@gmail.com").collection("activities")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Activity atividade = document.toObject(Activity.class);
+                                Log.d("Tag10","YELLLO");
+                                if (document.getId().equals("18")) {
+                                    Log.d("Tag10","YELLLO2");
+                                    for (GeoPoint i: atividade.getCoordinates()) {
+                                        double latitude = i.getLatitude();
+                                        double longitude = i.getLongitude();
+                                        int height = 25;
+                                        int width = 25;
+                                        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.ponto);
+                                        Bitmap b=bitmapdraw.getBitmap();
+                                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                                        googleMap.addMarker(new MarkerOptions()
+                                                .position(new LatLng(latitude, longitude))
+                                                .title("Marker"))
+                                                .setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+                                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
+                                        googleMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
+                                    }
+                                }
+
+                            }
+                        } else {
+                            Log.d("error", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+        */
+
+        /*
+        latitude = 40.63401558;
+        longitude = -8.65952882;
+        int height = 25;
+        int width = 25;
+        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.ponto);
+        Bitmap b=bitmapdraw.getBitmap();
+        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+        googleMap.addMarker(new MarkerOptions()
+                .position(new LatLng(latitude, longitude))
+                .title("Marker"))
+                .setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
+
+
+
+
+        latitude = 40.63435829;
+        longitude = -8.65959428;
+        bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.ponto);
+        b=bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+        googleMap.addMarker(new MarkerOptions()
+                .position(new LatLng(latitude, longitude))
+                .title("Marker"))
+                .setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
+
+        latitude = 40.63482194;
+        longitude = -8.65908073;
+        bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.ponto);
+        b=bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+        googleMap.addMarker(new MarkerOptions()
+                .position(new LatLng(latitude, longitude))
+                .title("Marker"))
+                .setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
+        */
+
     }
 
 

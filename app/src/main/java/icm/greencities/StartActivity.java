@@ -268,7 +268,7 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
                 @Override
                 public void run()
                 {
-                    if (countAux < 3) {
+                    if (countAux < 2) {
                         countAux++;
                     }
                     count++;
@@ -295,7 +295,7 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
                         myTextView3.setText(String.valueOf(segundos.charAt(0)));
                         myTextView4.setText(String.valueOf(segundos.charAt(1)));
                     }
-                    if (countAux == 3) {
+                    if (countAux == 2) {
                         countAux = 0;
                         Location newLocation = gps.getLocation();
                         double newLat = newLocation.getLatitude();
