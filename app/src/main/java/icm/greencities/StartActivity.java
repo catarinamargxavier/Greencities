@@ -393,7 +393,7 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
                 Activity aux = new Activity();
                 aux.setActivity(doing);
                 aux.setCoordinates(coordenadas);
-                aux.setDistance(distance);
+                aux.setDistance(newDistance);
                 aux.setTime(count);
                 aux.setPoints(count/10);
                 aux.setDate(time);

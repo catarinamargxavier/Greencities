@@ -91,10 +91,10 @@ public class MyRecyclerViewAdapterResults extends RecyclerView
             sec = seconds + "";
 
         holder.activity.setText(mDataset.get(position).getActivity());
-        holder.distance.setText(mDataset.get(position).getDistance()+"");
+        holder.distance.setText((double) mDataset.get(position).getDistance() + " m");
         holder.time.setText(h + ":" + min+":"+sec);
-        holder.date.setText(mDataset.get(position).getDate()+"");
-
+        holder.date.setText("December 5th 2018");
+        mDataset.get(position).getDate();
 
         if (mDataset.get(position).getActivity() == "Cycling")
             holder.actIcon.setImageResource(R.drawable.ic_on_bicycle);

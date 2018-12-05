@@ -96,7 +96,7 @@ public class ProfileAtivity extends AppCompatActivity {
 
         //Initialize Views
         btnChoose = (Button) findViewById(R.id.btnChoose);
-        btnUpload = (Button) findViewById(R.id.btnUpload);
+       // btnUpload = (Button) findViewById(R.id.btnUpload);
         //imageView = (ImageView) findViewById(R.id.imgView);
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,12 +104,12 @@ public class ProfileAtivity extends AppCompatActivity {
                 chooseImage();
             }
         });
-        btnUpload.setOnClickListener(new View.OnClickListener() {
+        /*btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 uploadImage();
             }
-        });
+        });*/
     }
 
 
@@ -182,19 +182,19 @@ public class ProfileAtivity extends AppCompatActivity {
             DocumentReference doc = db.collection("users").document(user.getEmail());
 
             doc
-                .update("image", ref.toString())
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("Sucess", "DocumentSnapshot successfully updated!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("Failure", "Error updating document", e);
-                    }
-                });
+                    .update("image", ref.toString())
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("Sucess", "DocumentSnapshot successfully updated!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("Failure", "Error updating document", e);
+                        }
+                    });
 
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

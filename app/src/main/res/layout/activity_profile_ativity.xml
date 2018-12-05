@@ -61,16 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
         android:background="@color/colorPrimary"
-        android:text="Choose"
-        android:textColor="@color/white" />
-
-    <Button
-        android:id="@+id/btnUpload"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
-        android:background="@color/colorPrimary"
-        android:text="Upload"
+        android:text="Choose Profile Image"
         android:textColor="@color/white" />
 
 
