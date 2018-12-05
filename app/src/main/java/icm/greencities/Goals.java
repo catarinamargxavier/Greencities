@@ -54,6 +54,7 @@ public class Goals extends AppCompatActivity {
 
     private int count;
     private String id;
+    private int pointsUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,10 +161,16 @@ public class Goals extends AppCompatActivity {
 
 
     private void presentToUser() {
-        // HERE GET DATA
-        mAdapter = new MyRecyclerViewAdapter(getDataSet());
-        // END OF GET DATA
-        mRecyclerView.setAdapter(mAdapter);
+        DocumentReference docRef = db.collection("users").document(user.getEmail());
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                userData = documentSnapshot.toObject(User.class);
+                pointsUser = userData.getPoints();
+                mAdapter = new MyRecyclerViewAdapter(getDataSet());
+                mRecyclerView.setAdapter(mAdapter);
+            }
+        });
     }
 
 
@@ -174,23 +181,13 @@ public class Goals extends AppCompatActivity {
         if (dados.size() != 0) {
             for (Map.Entry<String, Store> i : dados.entrySet()) {
                 for (Discount desconto: i.getValue().getDiscount()) {
-                    Discount2 discount = new Discount2(Integer.parseInt(i.getKey()),desconto.getTitle(), desconto.getDescription(), i.getValue().getName(), Integer.toString(desconto.getValue()) + " points");
-                    results.add(discount);
+                    if (desconto.getValue() <= pointsUser) {
+                        Discount2 discount = new Discount2(Integer.parseInt(i.getKey()), desconto.getTitle(), desconto.getDescription(), i.getValue().getName(), Integer.toString(desconto.getValue()) + " points");
+                        results.add(discount);
+                    }
                 }
             }
         }
-
-
-        /*
-        results.add(0, discount);
-        Discount2 discount21 = new Discount2(22,"5€ em Sapatilhas na SportZone", "Desconto de 5€ numa compra superior a 40€", "SportZone", "300 points");
-        results.add(1, discount21);
-        Discount2 discount22 = new Discount2(921,"Menu Grande ao preço Menu Normal", "McMenu Grande com desconto Normal", "Mac", "50 points");
-        results.add(2, discount22);
-        Discount2 discount23 = new Discount2(421,"Rodizio Pizza a 8,5€", "Desconto no Rodizio de Pizza", "Pizza Hut", "75 points");
-        results.add(3, discount23);
-        results.add(4, discount21);
-        results.add(5, discount22);*/
 
         return results;
     }
