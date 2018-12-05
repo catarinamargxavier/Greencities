@@ -363,6 +363,14 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
                     StartActivity.this,
                     "Activity finished successfully! ",
                     Toast.LENGTH_LONG).show();
+        } else if ( doing == null || doing.equals("nothing") ) {
+            if (count != 0) {
+                T.cancel();
+            }
+            Toast.makeText(
+                    StartActivity.this,
+                    "This activity was not registered. Error detecting activity!",
+                    Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(
                     StartActivity.this,
@@ -375,9 +383,8 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
         //Log.d("Tag8", "Time " + count);
     }
 
-    // Save data in DB
     private void submit () {
-        Log.d("Tag8", "HERE!");
+        //Log.d("Tag8", "HERE!");
         DocumentReference docRef = db.collection("users").document(user.getEmail());
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -406,8 +413,23 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
                                 Log.w(TAG, "Error updating document", e);
                             }
                         });
+                docRef
+                        .update("points", user2.getPoints() + (count/10))
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error updating document", e);
+                            }
+                        });
             }
         });
+
     }
 
     @Override
