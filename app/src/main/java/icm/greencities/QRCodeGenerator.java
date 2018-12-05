@@ -41,32 +41,24 @@ public class QRCodeGenerator extends AppCompatActivity {
         setContentView(R.layout.activity_qrcode_generator);
 
         iv = (ImageView) findViewById(R.id.imageQR);
-        etqr = (EditText) findViewById(R.id.etqr);
-        btn = (Button) findViewById(R.id.btnGenerator);
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(etqr.getText().toString().trim().length() == 0){
-                    Toast.makeText(QRCodeGenerator.this, "Enter String!", Toast.LENGTH_SHORT).show();
-                }else {
                     try {
-                        bitmap = TextToImageEncode(etqr.getText().toString());
+                        bitmap = TextToImageEncode("Qualquer cena".toString());
                         iv.setImageBitmap(bitmap);
                         String path = saveImage(bitmap);  //give read write permission
-                        Toast.makeText(QRCodeGenerator.this, "QRCode saved to -> "+path, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(QRCodeGenerator.this, "QRCode saved to -> "+path, Toast.LENGTH_SHORT).show();
                     } catch (WriterException e) {
                         e.printStackTrace();
                     }
 
-                }
+
                 // Close Keyboard
-                if (v != null) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                }
-            }
-        });
+                //if (v != null) {
+                //    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                //    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                //}
+
+
 
 
 

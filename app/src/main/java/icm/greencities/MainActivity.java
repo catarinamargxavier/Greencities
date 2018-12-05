@@ -1,26 +1,34 @@
 package icm.greencities;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -33,7 +41,16 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import icm.entities.AlarmReceiver;
+
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+    private NotificationManager mNotificationManager;
+
+    private static final int NOTIFICATION_ID = 0;
+    private static final String PRIMARY_CHANNEL_ID =
+            "primary_notification_channel";
+
 
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_LOCATION = 1;
     FirebaseAuth auth;
@@ -123,6 +140,33 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(new Intent(MainActivity.this, StartActivity.class));
             }
         });
+
+        mNotificationManager = (NotificationManager)
+                getSystemService(NOTIFICATION_SERVICE);
+
+        // Set up the Notification Broadcast Intent.
+        Intent notifyIntent = new Intent(this, AlarmReceiver.class);
+
+
+        final PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
+                (this, NOTIFICATION_ID, notifyIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+
+        final AlarmManager alarmManager = (AlarmManager) getSystemService
+                (ALARM_SERVICE);
+
+        long repeatInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
+        long triggerTime = SystemClock.elapsedRealtime()
+                + repeatInterval;
+
+        // If the Toggle is turned on, set the repeating alarm with
+        // a 15 minute interval.
+        if (alarmManager != null) {
+            alarmManager.setInexactRepeating
+                    (AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                            triggerTime, repeatInterval,
+                            notifyPendingIntent);
+        }
 
     }
 
@@ -276,6 +320,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         */
 
     }
+
 
 
 }

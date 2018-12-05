@@ -4,22 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="icm.entities.QRCodeGenerator">
+    tools:context=".QRCodeGenerator">
 
-<EditText
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/etqr"
-    android:layout_marginTop="10dp"
-    android:layout_marginLeft="5dp"
-    android:hint="Enter String" />
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/btnGenerator"
-    android:text="Create Image"
-    android:layout_marginTop="10dp"/>
 <ImageView
+    android:layout_gravity="center"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
