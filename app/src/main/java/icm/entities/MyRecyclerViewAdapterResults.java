@@ -97,8 +97,10 @@ public class MyRecyclerViewAdapterResults extends RecyclerView
         holder.activity.setText(mDataset.get(position).getActivity());
         holder.distance.setText((double) mDataset.get(position).getDistance() + " m");
         holder.time.setText(h + ":" + min+":"+sec);
-        Long aux = mDataset.get(position).getDate();
-        holder.date.setText((new Date(aux * 1000)).toString());
+        String aux = (new Date (mDataset.get(position).getDate() * 1000)).toString();
+        String[] data = aux.split(" ");
+        String nova = data[0] + " " + data[2] + " " + data[1] + " " + data[data.length -1] + "\n" + data[3];
+        holder.date.setText(nova);
         mDataset.get(position).getDate();
 
         if (mDataset.get(position).getActivity() == "Cycling")
