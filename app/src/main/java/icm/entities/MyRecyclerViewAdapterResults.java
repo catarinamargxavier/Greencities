@@ -1,6 +1,7 @@
 package icm.entities;
 
 import android.content.Intent;
+import android.service.autofill.Dataset;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +10,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.Timestamp;
+
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 
 import icm.greencities.Discount;
 import icm.greencities.QRCodeGenerator;
@@ -93,7 +97,8 @@ public class MyRecyclerViewAdapterResults extends RecyclerView
         holder.activity.setText(mDataset.get(position).getActivity());
         holder.distance.setText((double) mDataset.get(position).getDistance() + " m");
         holder.time.setText(h + ":" + min+":"+sec);
-        holder.date.setText("December 5th 2018");
+        Long aux = mDataset.get(position).getDate();
+        holder.date.setText((new Date(aux * 1000)).toString());
         mDataset.get(position).getDate();
 
         if (mDataset.get(position).getActivity() == "Cycling")
