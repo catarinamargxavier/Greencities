@@ -19,10 +19,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthEmailException;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 
-public class ForgetPassword extends AppCompatActivity {
+public class ForgetPasswordActivity extends AppCompatActivity {
 
     private EditText edtMode;
     private TextView txtMode;
@@ -78,7 +77,6 @@ public class ForgetPassword extends AppCompatActivity {
     private void callFunction(int mode) {
 
         if (checkConnection()) {
-
             FirebaseUser user = auth.getCurrentUser();
             final String modeStr = edtMode.getText().toString();
             if (mode == 0) {
@@ -90,9 +88,9 @@ public class ForgetPassword extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(ForgetPassword.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ForgetPasswordActivity.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(ForgetPassword.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ForgetPasswordActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
                                 try {
                                     throw task.getException();
                                 } catch (FirebaseAuthEmailException e) {
@@ -102,7 +100,6 @@ public class ForgetPassword extends AppCompatActivity {
                                 }
                             }
                             PD.dismiss();
-
                         }
                     });
                 }
@@ -116,9 +113,9 @@ public class ForgetPassword extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(ForgetPassword.this, "Password is updated!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ForgetPasswordActivity.this, "Password is updated!", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        Toast.makeText(ForgetPassword.this, "Failed to update password!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ForgetPasswordActivity.this, "Failed to update password!", Toast.LENGTH_SHORT).show();
                                     }
                                     PD.dismiss();
                                 }
@@ -135,9 +132,9 @@ public class ForgetPassword extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(ForgetPassword.this, "Email address is updated.", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(ForgetPasswordActivity.this, "Email address is updated.", Toast.LENGTH_LONG).show();
                                     } else {
-                                        Toast.makeText(ForgetPassword.this, "Failed to update email!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(ForgetPasswordActivity.this, "Failed to update email!", Toast.LENGTH_LONG).show();
                                     }
                                     PD.dismiss();
                                 }
@@ -151,9 +148,9 @@ public class ForgetPassword extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(ForgetPassword.this, "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ForgetPasswordActivity.this, "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        Toast.makeText(ForgetPassword.this, "Failed to delete your account!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ForgetPasswordActivity.this, "Failed to delete your account!", Toast.LENGTH_SHORT).show();
                                     }
                                     PD.dismiss();
                                 }
@@ -162,7 +159,7 @@ public class ForgetPassword extends AppCompatActivity {
             }
         } else {
             Toast.makeText(
-                    ForgetPassword.this,
+                    ForgetPasswordActivity.this,
                     "This app requires an active internet connection!",
                     Toast.LENGTH_LONG).show();
         }

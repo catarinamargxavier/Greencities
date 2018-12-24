@@ -1,4 +1,4 @@
-package icm.greencities;
+package icm.others;
 
 import android.app.IntentService;
 import android.content.Intent;

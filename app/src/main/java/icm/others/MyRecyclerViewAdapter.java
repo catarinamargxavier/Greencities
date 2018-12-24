@@ -1,4 +1,4 @@
-package icm.entities;
+package icm.others;
 
 import android.support.v7.widget.RecyclerView;
 
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import icm.entities.Discount2;
 import icm.greencities.R;
 
 public class MyRecyclerViewAdapter extends RecyclerView

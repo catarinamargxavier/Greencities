@@ -2,25 +2,18 @@ package icm.greencities;
 
 import android.Manifest;
 import android.app.AlarmManager;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -28,7 +21,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -41,7 +33,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import icm.entities.AlarmReceiver;
+import icm.others.AlarmReceiver;
+import icm.others.GPSTracker;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -121,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         btnResults.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ResultsMain.class));
+                startActivity(new Intent(MainActivity.this, ResultsMainActivity.class));
             }
         });
 
@@ -129,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         menu_Goals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, Goals.class));
+                startActivity(new Intent(MainActivity.this, GoalsActivity.class));
             }
         });
 
@@ -137,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         menu_startActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, StartActivity.class));
+                startActivity(new Intent(MainActivity.this, StartActivityActivity.class));
             }
         });
 

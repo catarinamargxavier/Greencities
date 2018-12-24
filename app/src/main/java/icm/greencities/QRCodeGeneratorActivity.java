@@ -26,7 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 
-public class QRCodeGenerator extends AppCompatActivity {
+public class QRCodeGeneratorActivity extends AppCompatActivity {
 
     public final static int QRcodeWidth = 500 ;
     private static final String IMAGE_DIRECTORY = "/QRcodeDemonuts";
@@ -46,7 +46,7 @@ public class QRCodeGenerator extends AppCompatActivity {
                         bitmap = TextToImageEncode("Qualquer cena".toString());
                         iv.setImageBitmap(bitmap);
                         String path = saveImage(bitmap);  //give read write permission
-                        //Toast.makeText(QRCodeGenerator.this, "QRCode saved to -> "+path, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(QRCodeGeneratorActivity.this, "QRCode saved to -> "+path, Toast.LENGTH_SHORT).show();
                     } catch (WriterException e) {
                         e.printStackTrace();
                     }

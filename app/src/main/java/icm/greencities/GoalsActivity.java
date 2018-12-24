@@ -30,12 +30,12 @@ import java.util.Map;
 
 import icm.entities.Discount2;
 import icm.entities.Discount;
-import icm.entities.MyCallback;
-import icm.entities.MyRecyclerViewAdapter;
+import icm.others.MyCallback;
+import icm.others.MyRecyclerViewAdapter;
 import icm.entities.Store;
 import icm.entities.User;
 
-public class Goals extends AppCompatActivity {
+public class GoalsActivity extends AppCompatActivity {
 
     private TextView pointsText;
 
@@ -112,7 +112,7 @@ public class Goals extends AppCompatActivity {
             @Override
             public void onItemClick(int position, View v) {
                 Log.i(LOG_TAG, " Clicked on Item " + position);
-                startActivity(new Intent(Goals.this, QRCodeGenerator.class));
+                startActivity(new Intent(GoalsActivity.this, QRCodeGeneratorActivity.class));
             }
         });
     }

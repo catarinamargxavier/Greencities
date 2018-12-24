@@ -36,20 +36,19 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import icm.entities.Activity;
-import icm.entities.GPSTracker;
-import icm.entities.StepDetector;
-import icm.entities.StepListener;
+import icm.others.GPSTracker;
+import icm.others.StepDetector;
+import icm.others.StepListener;
 import icm.entities.User;
+import icm.others.BackgroundDetectedActivitiesService;
 
-public class StartActivity extends AppCompatActivity implements SensorEventListener, StepListener {
+public class StartActivityActivity extends AppCompatActivity implements SensorEventListener, StepListener {
 
     GPSTracker gps;
 
@@ -116,7 +115,7 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
             public void onClick(View view) {
                 final LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
                 if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(StartActivity.this);
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(StartActivityActivity.this);
                     alertDialogBuilder
                             .setMessage("Your GPS seems to be disabled, do you want to enable it?")
                             .setCancelable(false)
@@ -142,13 +141,13 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
         btnStopTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sensorManager.unregisterListener(StartActivity.this);
+                sensorManager.unregisterListener(StartActivityActivity.this);
                 stopTracking();
 
             }
         });
 
-        gps = new GPSTracker(StartActivity.this);
+        gps = new GPSTracker(StartActivityActivity.this);
 
         btnStopTracking.setVisibility(View.GONE);
 
@@ -256,7 +255,7 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
         btnStartTracking.setVisibility(View.GONE);
         txtActivity.setText("Detecting activity...");
 
-        Intent intent = new Intent(StartActivity.this, BackgroundDetectedActivitiesService.class);
+        Intent intent = new Intent(StartActivityActivity.this, BackgroundDetectedActivitiesService.class);
         startService(intent);
 
         myTextView = findViewById(R.id.countTime);
@@ -281,7 +280,7 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
 
     private void countTime() {
         numSteps = 0;
-        sensorManager.registerListener(StartActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
+        sensorManager.registerListener(StartActivityActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
         time = (new Timestamp(new Date())).getSeconds();
         T=new Timer();
         T.scheduleAtFixedRate(new TimerTask() {
@@ -370,7 +369,7 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
 
 
     private void stopTracking() {
-        Intent intent = new Intent(StartActivity.this, BackgroundDetectedActivitiesService.class);
+        Intent intent = new Intent(StartActivityActivity.this, BackgroundDetectedActivitiesService.class);
         stopService(intent);
         if (count != 0) {
             T.cancel();
@@ -383,7 +382,7 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
             }
             submit();
             Toast.makeText(
-                    StartActivity.this,
+                    StartActivityActivity.this,
                     "Activity finished successfully! ",
                     Toast.LENGTH_LONG).show();
         } else if ( doing == null || doing.equals("nothing") || doing.equals("") ) {
@@ -391,12 +390,12 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
                 T.cancel();
             }
             Toast.makeText(
-                    StartActivity.this,
+                    StartActivityActivity.this,
                     "This activity was not registered. Error detecting activity!",
                     Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(
-                    StartActivity.this,
+                    StartActivityActivity.this,
                     "This activity was not registered. No activity found!",
                     Toast.LENGTH_LONG).show();
         }

@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ForgetPassword"
+            android:name=".ForgetPasswordActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
@@ -46,22 +46,21 @@
             android:name=".ProfileAtivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StartActivity"
+            android:name=".StartActivityActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ResultsMain"
+            android:name=".ResultsMainActivity"
             android:screenOrientation="portrait" />
 
         <service
-            android:name=".DetectedActivitiesIntentService"
+            android:name="icm.others.DetectedActivitiesIntentService"
             android:exported="false" />
-        <service android:name=".BackgroundDetectedActivitiesService" />
+        <service android:name="icm.others.BackgroundDetectedActivitiesService" />
 
-        <activity android:name="icm.entities.Discount2" />
         <activity
-            android:name=".Goals"
+            android:name=".GoalsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".QRCodeGenerator" />
+        <activity android:name=".QRCodeGeneratorActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

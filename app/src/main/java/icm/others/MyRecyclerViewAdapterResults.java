@@ -1,7 +1,5 @@
-package icm.entities;
+package icm.others;
 
-import android.content.Intent;
-import android.service.autofill.Dataset;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,16 +8,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.Timestamp;
-
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
-import icm.greencities.Discount;
-import icm.greencities.QRCodeGenerator;
+import icm.entities.Activity;
 import icm.greencities.R;
-import icm.greencities.ResultsMain;
 
 public class MyRecyclerViewAdapterResults extends RecyclerView
         .Adapter<MyRecyclerViewAdapterResults

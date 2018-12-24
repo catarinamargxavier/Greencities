@@ -1,4 +1,4 @@
-package icm.entities;
+package icm.others;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
