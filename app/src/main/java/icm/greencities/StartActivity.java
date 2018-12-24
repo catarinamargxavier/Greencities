@@ -2,6 +2,7 @@ package icm.greencities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.Sensor;
@@ -10,8 +11,10 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -111,7 +114,28 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
         btnStartTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startTracking();
+                final LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
+                if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(StartActivity.this);
+                    alertDialogBuilder
+                            .setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                            .setCancelable(false)
+                            .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                } else {
+                    startTracking();
+                }
             }
         });
 
@@ -382,6 +406,7 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
         //Log.d("Tag8", "Time " + count);
     }
 
+
     private void submit () {
         //Log.d("Tag8", "HERE!");
         DocumentReference docRef = db.collection("users").document(user.getEmail());
@@ -431,9 +456,11 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
 
     }
 
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
+
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -442,6 +469,7 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
                     event.timestamp, event.values[0], event.values[1], event.values[2]);
         }
     }
+
 
     @Override
     public void step(long timeNs) {
