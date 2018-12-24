@@ -308,7 +308,6 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
                             lastLat = newLat;
                             lastLong = newLong;
                         }
-                        ;
                         //txtLocation.setText("Lat:" + newLocation.getLatitude() +  "\nLong: " + newLocation.getLongitude());
                         //Log.d("Tag8", "-> " + distance + "m");
                     }
